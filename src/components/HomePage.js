@@ -1,29 +1,24 @@
-import React from 'react'
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from 'react'
 import { NavBar } from './NavBar';
 
-import styles from '../styles/HomePage.module.css'
+import CurvedCarousel from './CurvedCarousel';
+import TB from './TB';
+import TitleBox from './TitleBox';
 
 const HomePage = () => {
+
+    useEffect(() => {
+        document.title = 'Neón Infinito - Inicio';
+    }, []);
 
     const tabs = ['Inicio', 'Catálogo', 'Proyectos', 'Nosotros']
     
     return (
         <>
             <NavBar user='Felipe Michalski' tabs={tabs}/>
-            <div style={{
-                backgroundColor: 'black',
-                height: '100vh',
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}>
-                <div className={styles.neon}>
-                    <h1>Neon</h1>
-                    <span className={styles.neonIcon}>&infin;</span>
-                </div>
-            </div>
+            <TitleBox />
+            {/* <TB /> */}
+            <CurvedCarousel />
         </>
     )
 }

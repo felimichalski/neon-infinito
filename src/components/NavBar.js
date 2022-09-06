@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { createStyles, Container, UnstyledButton, Group, Text, Menu, Tabs, Burger } from '@mantine/core';
+import { createStyles, Container, UnstyledButton, Group, Text, Menu, Tabs, Burger, Anchor, Indicator } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconChevronDown } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart } from '@tabler/icons';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -11,10 +10,12 @@ const removeAccents = (str) => {
 
 const useStyles = createStyles((theme) => ({
   header: {
-    position: 'fixed',
+    position: 'absolute',
+    top: '1rem',
     width: '100%',
     paddingTop: theme.spacing.sm,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    zIndex: 1000
   },
 
   mainSection: {
@@ -22,11 +23,17 @@ const useStyles = createStyles((theme) => ({
   },
 
   user: {
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-    padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+    padding: `${theme.spacing.sm}px ${theme.spacing.sm}px`,
+    backgroundColor: 'white',
+    borderRadius: '50%',
 
     [theme.fn.smallerThan('xs')]: {
       display: 'none',
+    },
+
+    '&:hover': {
+      backgroundColor: theme.colors.dark[3],
     },
   },
 
@@ -34,10 +41,6 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.largerThan('xs')]: {
       display: 'none',
     },
-  },
-
-  userActive: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
   },
 
   tabs: {
@@ -63,6 +66,7 @@ const useStyles = createStyles((theme) => ({
 
     '&[data-active]': {
         color: 'white',
+        borderBottom: '1px solid white'
     },
   },
 }));
@@ -91,64 +95,69 @@ export function NavBar({ user, tabs }) {
         <div className={classes.header}>
         <Container className={classes.mainSection} fluid>
             <Group style={{display: 'flex', justifyContent: 'space-between'}}>
-                <MantineLogo size={28} />
-                <Tabs defaultValue={location.pathname.substring(1) !== '' ? location.pathname.substring(1) : 'inicio'} classNames={{
-                    root: classes.tabs,
-                    tabsList: classes.tabsList,
-                    tab: classes.tab,
-                }}
-                >
-                    <Tabs.List>{items}</Tabs.List>
-                </Tabs>
+                <Group>
+
+                  <Anchor component={Link} to="/" style={{
+                    textDecoration: 'none'
+                  }}>
+                    NEON INFINITO
+                  </Anchor>
+                  <Tabs defaultValue={location.pathname.substring(1) !== '' ? location.pathname.substring(1) : 'inicio'} classNames={{
+                      root: classes.tabs,
+                      tabsList: classes.tabsList,
+                      tab: classes.tab,
+                  }}
+                  >
+                      <Tabs.List>{items}</Tabs.List>
+                  </Tabs>
+                </Group>
 
                 <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
 
-                <Menu
-                    width={260}
-                    position="bottom-end"
-                    transition="pop-top-right"
-                    onClose={() => setUserMenuOpened(false)}
-                    onOpen={() => setUserMenuOpened(true)}
-                >
-                    <Menu.Target>
-                    <UnstyledButton className={cx(classes.user, { [classes.userActive]: userMenuOpened })}>
-                        <Group spacing={7}>
-                        <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3}>
-                            {user}
-                        </Text>
-                        <IconChevronDown size={12} stroke={1.5} />
-                        </Group>
-                    </UnstyledButton>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                    <Menu.Item icon={<IconHeart size={14} color={theme.colors.red[6]} stroke={1.5} />}>
-                        Liked posts
-                    </Menu.Item>
-                    <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
-                        Saved posts
-                    </Menu.Item>
-                    <Menu.Item icon={<IconMessage size={14} color={theme.colors.blue[6]} stroke={1.5} />}>
-                        Your comments
-                    </Menu.Item>
+                <Group>
+                  <Indicator size={20} radius='xl' label='2' inline styles={{ indicator: {padding: '0'} }}>
+                    <IconShoppingCart size={30} stroke={1.5} color='white'/>
+                  </Indicator>
+                  <Menu
+                      width={260}
+                      position="bottom-end"
+                      transition="pop-top-right"
+                      onClose={() => setUserMenuOpened(false)}
+                      onOpen={() => setUserMenuOpened(true)}
+                  >
+                      <Menu.Target>
+                        <IconUser size={30} stroke={1.5} color='white'/>
+                      </Menu.Target>
+                      <Menu.Dropdown>
+                      <Menu.Item icon={<IconHeart size={14} color={theme.colors.red[6]} stroke={1.5} />}>
+                          Liked posts
+                      </Menu.Item>
+                      <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
+                          Saved posts
+                      </Menu.Item>
+                      <Menu.Item icon={<IconMessage size={14} color={theme.colors.blue[6]} stroke={1.5} />}>
+                          Your comments
+                      </Menu.Item>
 
-                    <Menu.Label>Settings</Menu.Label>
-                    <Menu.Item icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
-                    <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
-                        Change account
-                    </Menu.Item>
-                    <Menu.Item icon={<IconLogout size={14} stroke={1.5} />}>Logout</Menu.Item>
+                      <Menu.Label>Settings</Menu.Label>
+                      <Menu.Item icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
+                      <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
+                          Change account
+                      </Menu.Item>
+                      <Menu.Item icon={<IconLogout size={14} stroke={1.5} />}>Logout</Menu.Item>
 
-                    <Menu.Divider />
+                      <Menu.Divider />
 
-                    <Menu.Label>Danger zone</Menu.Label>
-                    <Menu.Item icon={<IconPlayerPause size={14} stroke={1.5} />}>
-                        Pause subscription
-                    </Menu.Item>
-                    <Menu.Item color="red" icon={<IconTrash size={14} stroke={1.5} />}>
-                        Delete account
-                    </Menu.Item>
-                    </Menu.Dropdown>
-                </Menu>
+                      <Menu.Label>Danger zone</Menu.Label>
+                      <Menu.Item icon={<IconPlayerPause size={14} stroke={1.5} />}>
+                          Pause subscription
+                      </Menu.Item>
+                      <Menu.Item color="red" icon={<IconTrash size={14} stroke={1.5} />}>
+                          Delete account
+                      </Menu.Item>
+                      </Menu.Dropdown>
+                  </Menu>
+                </Group>
             </Group>
         </Container>
         </div>
