@@ -44,7 +44,8 @@ const products = [
 
 const useStyles = createStyles((theme) => ({
     root: {
-        margin: '-5rem 1.5rem 5rem 1.5rem',
+        margin: '-5rem auto 5rem auto',
+        width: '80%',
         backgroundColor: 'white',
         padding: '5rem',
         borderRadius: '.5rem',

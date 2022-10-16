@@ -5,12 +5,10 @@ import ShortcutButtons from '../components/ShortcutButtons';
 import CurvedCarousel from '../components/CurvedCarousel';
 import TitleBox from '../components/TitleBox';
 import Featured from '../components/Featured';
-import Sidebar from '../components/Sidebar';
-import { Group } from '@mantine/core';
 
 const HomePage = () => {
 
-    const tabs = ['Inicio', 'Categorías', 'Proyectos', 'Nosotros']
+    const user = undefined;
 
     useEffect(() => {
         document.title = 'Neón Infinito - Inicio';
@@ -19,8 +17,7 @@ const HomePage = () => {
     
     return (
         <>
-            <NavBar user='Felipe Michalski' tabs={tabs}/>
-            {/* <Sidebar /> */}
+            <NavBar user={user}/>
             <TitleBox />
             <Featured />
         </>

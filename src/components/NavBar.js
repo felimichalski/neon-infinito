@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
-import { createStyles, Container, Group, Menu, Tabs, Burger, Anchor, Indicator, UnstyledButton, Image, Input } from '@mantine/core';
+import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Input } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch } from '@tabler/icons';
-import { useLocation, Link } from 'react-router-dom';
+import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2 } from '@tabler/icons';
+import { Link, useNavigate } from 'react-router-dom';
 
+import Sidebar from './Sidebar'
 import logo from '../assets/logo.png'
-
-const removeAccents = (str) => {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
 
 const useStyles = createStyles((theme, {position}) => ({
   header: {
@@ -68,71 +65,13 @@ const useStyles = createStyles((theme, {position}) => ({
   },
   
   burgerIcon: {
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
-
-  tabs: {
-    marginLeft: '2rem',
-
-    [theme.fn.smallerThan('md')]: {
-      display: 'none',
-    },
-  },
-
+  
   logo: {
     position: 'absolute',
     left: '50%',
     transform: 'translateX(-50%)'
-  },
-
-  tabsList: {
-    borderBottom: '0 !important',
-  },
-
-  tab: {
-    fontFamily: 'Poppins, sans-serif',
-    fontWeight: 500,
-    fontSize: '15px',
-    backgroundColor: 'transparent',
-    border: 'none',
-    color: theme.white,
-    margin: '0 .5rem',
-    cursor: 'default',
-    pointerEvents: 'none',
-
-    '&:hover': {
-        color: theme.white,
-        backgroundColor: 'transparent',
-    },
-
-    '&[data-active]': {
-        color: theme.white,
-    },
-
-    '&:after': {
-      content: '""',
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      width: '100%',
-      height: '2px',
-      backgroundColor: theme.white,
-      transform: 'scaleX(0)',
-      transformOrigin: 'bottom right',
-      transition: 'transform .25s ease-out'
-    },
-    
-    [`&:hover:after`]: {
-      transform: 'scaleX(1)',
-      transformOrigin: 'bottom left',
-    }
-
-  },
-
-  tabLink: {
-    pointerEvents: 'auto',
-    textDecoration: 'none',
-    color: theme.white
   },
 
   search: {
@@ -141,21 +80,13 @@ const useStyles = createStyles((theme, {position}) => ({
   }
 }));
 
-const NavBar = ({ user, tabs }) => {
+const NavBar = ({ user }) => {
 
-    const location = useLocation();
-
-    const handleRoute = (route) => {
-        if(route === 'Inicio') {
-          return '/' 
-        } else { 
-          return '/' + removeAccents(route.toLowerCase())
-      }
-    }
+    const navigate = useNavigate();
 
     const handleSearch = (e) => {
       if(e.key.toLowerCase() === 'enter') {
-        alert('hi')
+        navigate(`/search?id=${e.target.value}`)
       }
     }
 
@@ -170,15 +101,7 @@ const NavBar = ({ user, tabs }) => {
     const [opened, { toggle }] = useDisclosure(false);
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const [position, setPosition] = useState('absolute')
-    const { classes, theme, cx } = useStyles({position});
-
-    const items = tabs?.map((tab) => (
-        <Tabs.Tab key={tab} value={removeAccents(tab.toLowerCase())}>
-        {tab==='Categorías' ? 
-          <Link to='/categorias' className={classes.tabLink}>{tab}</Link>
-        : <Link to={handleRoute(tab)} className={classes.tabLink}>{tab}</Link>}
-        </Tabs.Tab>
-    ));
+    const {classes, theme, cx} = useStyles({position});
 
     useEffect(() => {
       handleScroll();
@@ -187,40 +110,12 @@ const NavBar = ({ user, tabs }) => {
     }, [])
 
     return (
+      <>
         <div className={classes.header}>
-          <Container className={classes.mainSection} fluid>
+          <Container className={classes.mainSection} fluid>  
             <Group>
-              <Input
-                  icon={<IconSearch color={position === 'absolute' ? 'white' : 'black'} />}
-                  variant="unstyled"
-                  placeholder="Buscar"
-                  type="search"
-                  className={classes.search}
-                  onKeyPress={(e) => handleSearch(e)}
-                  styles={{ input: {color: position === 'absolute' ? 'white' : 'black'} }}
-                />
-            </Group>
-            <Group className={classes.logo}>
-              <Anchor component={Link} to="/" style={{
-                  textDecoration: 'none'
-                }}>
-                  <Image src={logo} height={40}/>
-              </Anchor>
-              {/* <Tabs defaultValue={location.pathname.substring(1) !== '' ? location.pathname.substring(1) : 'inicio'} classNames={{
-                  root: classes.tabs,
-                  tabsList: classes.tabsList,
-                  tab: classes.tab,
-              }}
-              >
-                  <Tabs.List>{items}</Tabs.List>
-              </Tabs> */}
-            </Group>
-            
-            <Group>
-              <UnstyledButton className={classes.cart}>
-                <Indicator size={20} radius='xl' label='0' inline styles={{ indicator: {padding: '0'} }}>
-                  <IconShoppingCart size={30} stroke={1.5} className={classes.cartIcon}/>
-                </Indicator>
+              <UnstyledButton className={classes.burger}>
+                <IconMenu2 onClick={toggle} className={classes.burgerIcon} size={30} color={position === 'absolute' ? 'white' : 'black'}/>
               </UnstyledButton>
               <Menu
                   width={260}
@@ -236,6 +131,7 @@ const NavBar = ({ user, tabs }) => {
                     <IconUser size={30} stroke={1.5} className={classes.userIcon}/>
                   </UnstyledButton>
                 </Menu.Target>
+                {user ?
                 <Menu.Dropdown>
                   <Menu.Item icon={<IconHeart size={14} color={theme.colors.red[6]} stroke={1.5} />}>
                       Liked posts
@@ -264,13 +160,44 @@ const NavBar = ({ user, tabs }) => {
                       Delete account
                   </Menu.Item>
                 </Menu.Dropdown>
+                :
+                <Menu.Dropdown>
+                  <Menu.Item>
+                    Sign In
+                  </Menu.Item>
+                </Menu.Dropdown>
+                }
               </Menu>
-              <UnstyledButton className={classes.burger}>
-                <Burger opened={opened} onClick={toggle} className={classes.burgerIcon} size="sm" color={position === 'absolute' ? 'white' : 'black'}/>
+              <UnstyledButton className={classes.cart}>
+                <Indicator size={20} radius='xl' label='0' inline styles={{ indicator: {padding: '0'} }}>
+                  <IconShoppingCart size={30} stroke={1.5} className={classes.cartIcon}/>
+                </Indicator>
               </UnstyledButton>
+            </Group>
+
+            <Group className={classes.logo}>
+              <Anchor component={Link} to="/" style={{
+                  textDecoration: 'none'
+                }}>
+                  <Image src={logo} height={40}/>
+              </Anchor>
+            </Group>
+
+            <Group>
+              <Input
+                  icon={<IconSearch color={position === 'absolute' ? 'white' : 'black'} />}
+                  variant="unstyled"
+                  placeholder="Buscar"
+                  type="search"
+                  className={classes.search}
+                  onKeyPress={(e) => handleSearch(e)}
+                  styles={{ input: {color: position === 'absolute' ? 'white' : 'black'} }}
+                />
             </Group>
           </Container>
         </div>
+        <Sidebar opened={opened} toggle={toggle}/>
+      </>
     );
 }
 

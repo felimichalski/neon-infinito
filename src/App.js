@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 
 import ErrorPage from './views/404.js';
 import HomePage from './views/HomePage';
+import Search from './views/Search.js';
 
 function App() {
 
@@ -14,9 +15,10 @@ function App() {
       <MantineProvider theme={{colorScheme: 'dark', focusRing: 'never', white: 'white'}}>
         <Routes location={location} key={location.pathname}>
           <Route index element={<HomePage />}/>
-          <Route path="/categorias" element={<HomePage />}/>
-          <Route path="/proyectos" element={<HomePage />}/>
-          <Route path="/nosotros" element={<HomePage />}/>
+          <Route path="/categories" element={<HomePage />}/>
+          <Route path="/projects" element={<HomePage />}/>
+          <Route path="/contact" element={<HomePage />}/>
+          <Route path="/search" element={<Search />}/>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </MantineProvider>
