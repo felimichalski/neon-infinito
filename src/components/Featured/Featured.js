@@ -3,11 +3,11 @@ import { Carousel } from '@mantine/carousel'
 
 import FeaturedProduct from './FeaturedProduct'
 
-import img1 from '../assets/products/VECTORES-01.png'
-import img2 from '../assets/products/VECTORES-02.png'
-import img3 from '../assets/products/VECTORES-03.png'
-import img4 from '../assets/products/VECTORES-04.png'
-import img5 from '../assets/products/VECTORES-05.png'
+import img1 from '../../assets/products/VECTORES-01.png'
+import img2 from '../../assets/products/VECTORES-02.png'
+import img3 from '../../assets/products/VECTORES-03.png'
+import img4 from '../../assets/products/VECTORES-04.png'
+import img5 from '../../assets/products/VECTORES-05.png'
 
 const products = [
     {
@@ -44,10 +44,10 @@ const products = [
 
 const useStyles = createStyles((theme) => ({
     root: {
-        margin: '-5rem auto 5rem auto',
-        width: '80%',
+        margin: '5rem auto',
+        width: '90%',
         backgroundColor: 'white',
-        padding: '5rem',
+        padding: '1rem',
         borderRadius: '.5rem',
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'saturate(200%) blur(30px)',

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 
 import NavBar from '../components/NavBar'
-import ShortcutButtons from '../components/ShortcutButtons';
 import CurvedCarousel from '../components/CurvedCarousel';
 import TitleBox from '../components/TitleBox';
-import Featured from '../components/Featured';
+import Info from '../components/Info/Info'
+import Featured from '../components/ft/Featured';
+import ScrollParallax from '../components/ScrollParallax';
 
 const HomePage = () => {
 
@@ -12,14 +13,18 @@ const HomePage = () => {
 
     useEffect(() => {
         document.title = 'Neón Infinito - Inicio';
-        document.body.style.backgroundColor = '#ECECEC'
+        // document.body.style.backgroundColor = '#ECECEC'
+        document.body.style.backgroundColor = 'black'
     }, []);
     
     return (
         <>
             <NavBar user={user}/>
             <TitleBox />
+            <Info />
             <Featured />
+            <ScrollParallax />
+            <Info />
         </>
     )
 }

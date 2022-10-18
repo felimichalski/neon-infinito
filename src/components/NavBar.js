@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
-import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Input } from '@mantine/core';
+import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2 } from '@tabler/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { IconChevronDown } from '@tabler/icons';
 
 import Sidebar from './Sidebar'
 import logo from '../assets/logo.png'
+
+const removeAccents = (str) => {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 
 const useStyles = createStyles((theme, {position}) => ({
   header: {
@@ -29,31 +34,16 @@ const useStyles = createStyles((theme, {position}) => ({
     alignItems: 'center'
   },
 
-  cart: {
+  iconContainer: {
     padding: `${theme.spacing.sm}px ${theme.spacing.sm}px`,
     cursor: 'default',
 
-    [theme.fn.smallerThan('xs')]: {
+    [theme.fn.smallerThan('sm')]: {
       display: 'none',
     }
   },
 
-  cartIcon: {
-    color: position === 'absolute' ? theme.white : theme.black,
-    cursor: 'pointer',
-    transition: 'color .3s ease-out',
-  },
-
-  user: {
-    padding: `${theme.spacing.sm}px ${theme.spacing.sm}px`,
-    cursor: 'default',
-
-    [theme.fn.smallerThan('xs')]: {
-      display: 'none',
-    }
-  },
-
-  userIcon: {
+  icon: {
     color: position === 'absolute' ? theme.white : theme.black,
     cursor: 'pointer',
     transition: 'color .3s ease-out',
@@ -62,27 +52,76 @@ const useStyles = createStyles((theme, {position}) => ({
   burger: {
     padding: `${theme.spacing.sm}px ${theme.spacing.sm}px`,
     cursor: 'default',
+    [theme.fn.largerThan('sm')]: {
+      display: 'none',
+    }
   },
   
   burgerIcon: {
     cursor: 'pointer'
   },
-  
-  logo: {
-    position: 'absolute',
-    left: '50%',
-    transform: 'translateX(-50%)'
+
+  sidebar: {
+    [theme.fn.largerThan('sm')]: {
+      display: 'none',
+    }
   },
 
-  search: {
+  tabs: {
+    [theme.fn.smallerThan('sm')]: {
+      display: 'none',
+    }
+  },
+
+  tabsList: {
+    borderBottom: '0 !important',
+  },
+
+  tab: {
+    fontFamily: 'Poppins, sans-serif',
+    fontWeight: 500,
+    fontSize: '15px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: position === 'absolute' ? theme.white : theme.black,
+    textTransform: 'uppercase',
+    transition: 'all .3s ease-out',
+    userSelect: 'none',
+
+    '&:hover': {
+        backgroundColor: 'transparent'
+    },
+    
+    '&[data-active]': {
+      borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
+      color: position === 'absolute' ? theme.white : theme.black,
+    },
+
+    '&[data-active]:hover': {
+      borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
+    }
+  },
+
+  tabLink: {
+    pointerEvents: 'auto',
+    textDecoration: 'none',
+    color: theme.white,
+    display: 'flex',
+  },
+
+  active: {
     borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-    transition: 'all .3s ease-out'
+
+    '&:hover': {
+      borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
+    },
   }
 }));
 
 const NavBar = ({ user }) => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSearch = (e) => {
       if(e.key.toLowerCase() === 'enter') {
@@ -102,6 +141,29 @@ const NavBar = ({ user }) => {
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const [position, setPosition] = useState('absolute')
     const {classes, theme, cx} = useStyles({position});
+    const active = location.pathname;
+
+    const tabs = [{
+        name: 'Inicio',
+        link: '/',
+    }, {
+        name: 'Categorías',
+        link: '/categories',
+    }, {
+        name: 'Proyectos',
+        link: '/projects',
+    }, {
+        name: 'Contacto',
+        link: '/contact',
+    }];
+
+    const items = tabs?.map((tab, key) => (
+      <Link to={tab.link} className={classes.tabLink} key={key}>
+          <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={cx(classes.tab, {[classes.active]: active === tab.link})}>
+              <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}{tab.name === 'Categorías' && <IconChevronDown />}</Text>
+          </Tabs.Tab>
+      </Link>
+    ));
 
     useEffect(() => {
       handleScroll();
@@ -113,10 +175,29 @@ const NavBar = ({ user }) => {
       <>
         <div className={classes.header}>
           <Container className={classes.mainSection} fluid>  
+            <Group className={classes.logo}>
+              <Anchor component={Link} to="/" style={{
+                  textDecoration: 'none'
+                }}>
+                  <Image src={logo} height={40}/>
+              </Anchor>
+              <Tabs classNames={{
+                    root: classes.tabs,
+                    tabsList: classes.tabsList
+                }}
+                >
+                  <Tabs.List>{items}</Tabs.List>
+              </Tabs>
+            </Group>            
+
             <Group>
               <UnstyledButton className={classes.burger}>
                 <IconMenu2 onClick={toggle} className={classes.burgerIcon} size={30} color={position === 'absolute' ? 'white' : 'black'}/>
               </UnstyledButton>
+              <UnstyledButton className={classes.iconContainer}>
+                <IconSearch size={30} stroke={1.5} className={classes.icon}/>
+              </UnstyledButton>
+              {user?
               <Menu
                   width={260}
                   position="bottom-end"
@@ -126,12 +207,11 @@ const NavBar = ({ user }) => {
               >
                 <Menu.Target>
                   <UnstyledButton
-                    className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
+                    className={cx(classes.iconContainer, { [classes.userActive]: userMenuOpened })}
                   >
-                    <IconUser size={30} stroke={1.5} className={classes.userIcon}/>
+                    <IconUser size={30} stroke={1.5} className={classes.icon}/>
                   </UnstyledButton>
                 </Menu.Target>
-                {user ?
                 <Menu.Dropdown>
                   <Menu.Item icon={<IconHeart size={14} color={theme.colors.red[6]} stroke={1.5} />}>
                       Liked posts
@@ -160,43 +240,21 @@ const NavBar = ({ user }) => {
                       Delete account
                   </Menu.Item>
                 </Menu.Dropdown>
-                :
-                <Menu.Dropdown>
-                  <Menu.Item>
-                    Sign In
-                  </Menu.Item>
-                </Menu.Dropdown>
-                }
               </Menu>
-              <UnstyledButton className={classes.cart}>
+              :
+              <UnstyledButton className={classes.iconContainer}>
+                <IconLogin size={30} stroke={1.5} className={classes.icon}/>
+              </UnstyledButton>
+              }
+              <UnstyledButton className={classes.iconContainer}>
                 <Indicator size={20} radius='xl' label='0' inline styles={{ indicator: {padding: '0'} }}>
-                  <IconShoppingCart size={30} stroke={1.5} className={classes.cartIcon}/>
+                  <IconShoppingCart size={30} stroke={1.5} className={classes.icon}/>
                 </Indicator>
               </UnstyledButton>
             </Group>
-
-            <Group className={classes.logo}>
-              <Anchor component={Link} to="/" style={{
-                  textDecoration: 'none'
-                }}>
-                  <Image src={logo} height={40}/>
-              </Anchor>
-            </Group>
-
-            <Group>
-              <Input
-                  icon={<IconSearch color={position === 'absolute' ? 'white' : 'black'} />}
-                  variant="unstyled"
-                  placeholder="Buscar"
-                  type="search"
-                  className={classes.search}
-                  onKeyPress={(e) => handleSearch(e)}
-                  styles={{ input: {color: position === 'absolute' ? 'white' : 'black'} }}
-                />
-            </Group>
           </Container>
         </div>
-        <Sidebar opened={opened} toggle={toggle}/>
+        <Sidebar opened={opened} toggle={toggle} className={classes.sidebar}/>
       </>
     );
 }

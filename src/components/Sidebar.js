@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Box, createStyles, Overlay, Tabs, Text } from '@mantine/core'
 import { useScrollLock } from '@mantine/hooks';
 import { IconHome, IconCategory, IconFolders, IconMessageCircle2, IconX, IconChevronRight } from '@tabler/icons';
@@ -140,8 +140,9 @@ const Sidebar = ({ opened, toggle }) => {
             custom={index}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            key={index}
         >
-            <Link to={tab.link} className={classes.tabLink} key={tab.name}>
+            <Link to={tab.link} className={classes.tabLink}>
                 <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab} style={{color: tab.color}}>
                     <Text style={{display: 'flex', alignItems: 'center'}}>{tab.icon}{tab.name}{tab.name === 'Categorías' && <IconChevronRight />}</Text>
                 </Tabs.Tab>

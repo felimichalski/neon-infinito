@@ -93,9 +93,9 @@ const TitleBox = () => {
   return (
       <Box className={classes.root}>
           <BackgroundImage src={background} className={classes.backgroundImage}>
-              <Overlay opacity={.5} color="#000"/>
-              {/* <Overlay gradient={'linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 1) 100%)'}/>
-              <Overlay gradient={'linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 1) 100%)'}/> */}
+              <Overlay opacity={.2} blur={2} color="#000"/>
+              {/* <Overlay gradient={'linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 1) 100%)'}/> */}
+              <Overlay gradient={'linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 1) 100%)'}/>
           </BackgroundImage>
           <Container size="lg" className={classes.container}>
               <div className={classes.inner}>

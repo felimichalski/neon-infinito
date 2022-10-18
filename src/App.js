@@ -1,4 +1,5 @@
 import { MantineProvider } from '@mantine/core'
+import { ParallaxProvider } from 'react-scroll-parallax';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from "framer-motion";
 
@@ -12,16 +13,18 @@ function App() {
 
   return (
     <AnimatePresence exitBeforeEnter>
-      <MantineProvider theme={{colorScheme: 'dark', focusRing: 'never', white: 'white'}}>
-        <Routes location={location} key={location.pathname}>
-          <Route index element={<HomePage />}/>
-          <Route path="/categories" element={<HomePage />}/>
-          <Route path="/projects" element={<HomePage />}/>
-          <Route path="/contact" element={<HomePage />}/>
-          <Route path="/search" element={<Search />}/>
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </MantineProvider>
+      <ParallaxProvider>
+        <MantineProvider theme={{colorScheme: 'dark', focusRing: 'never', white: 'white'}}>
+          <Routes location={location} key={location.pathname}>
+            <Route index element={<HomePage />}/>
+            <Route path="/categories" element={<HomePage />}/>
+            <Route path="/projects" element={<HomePage />}/>
+            <Route path="/contact" element={<HomePage />}/>
+            <Route path="/search" element={<Search />}/>
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </MantineProvider>
+      </ParallaxProvider>
     </AnimatePresence>
   );
 }

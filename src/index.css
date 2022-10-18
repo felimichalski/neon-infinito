@@ -12,10 +12,6 @@ body {
   width: 10px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-}
-
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
