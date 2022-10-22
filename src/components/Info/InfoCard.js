@@ -3,6 +3,7 @@ import React from 'react'
 
 const useStyles = createStyles({
   card: {
+    fontFamily: 'Gotham',
     display: 'flex',
     flexDirection: 'column',
     margin: '1rem',

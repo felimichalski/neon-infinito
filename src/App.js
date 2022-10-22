@@ -3,6 +3,8 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from "framer-motion";
 
+import CustomFonts from './components/CustomFonts'
+
 import ErrorPage from './views/404.js';
 import HomePage from './views/HomePage';
 import Search from './views/Search.js';
@@ -14,7 +16,16 @@ function App() {
   return (
     <AnimatePresence exitBeforeEnter>
       <ParallaxProvider>
-        <MantineProvider theme={{colorScheme: 'dark', focusRing: 'never', white: 'white'}}>
+        <MantineProvider 
+          theme={{
+            colorScheme: 'dark',
+            focusRing: 'never',
+            fontFamily: ['Gotham', 'Essence Round'],
+            fontFamilyMonospace: ['Gotham', 'Essence Round'],
+            headings: ['Gotham', 'Essence Round'],
+          }}
+        >
+          <CustomFonts />
           <Routes location={location} key={location.pathname}>
             <Route index element={<HomePage />}/>
             <Route path="/categories" element={<HomePage />}/>

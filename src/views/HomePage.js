@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar'
 import CurvedCarousel from '../components/CurvedCarousel';
 import TitleBox from '../components/TitleBox';
 import Info from '../components/Info/Info'
-import Featured from '../components/ft/Featured';
+import Featured from '../components/Featured/Featured';
 import ScrollParallax from '../components/ScrollParallax';
 
 const HomePage = () => {

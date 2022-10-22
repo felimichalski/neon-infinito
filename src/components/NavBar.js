@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Text } from '@mantine/core';
+import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Text, Box, Grid } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -24,11 +24,11 @@ const useStyles = createStyles((theme, {position}) => ({
     borderRadius: '.5rem',
     backdropFilter: position === 'fixed' && 'saturate(200%) blur(30px)',
     boxShadow: position === 'fixed' && 'rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem',
-    transition: 'background-color .3s ease-out'
+    transition: 'background-color .3s ease-out',
   },
 
   mainSection: {
-    padding: '.5rem 3rem .3rem 3rem',
+    padding: '.5rem 3rem',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
@@ -78,8 +78,8 @@ const useStyles = createStyles((theme, {position}) => ({
   },
 
   tab: {
-    fontFamily: 'Poppins, sans-serif',
-    fontWeight: 500,
+    fontFamily: 'Gotham',
+    fontWeight: '700',
     fontSize: '15px',
     backgroundColor: 'transparent',
     border: 'none',
@@ -88,33 +88,50 @@ const useStyles = createStyles((theme, {position}) => ({
     transition: 'all .3s ease-out',
     userSelect: 'none',
 
+    '&[data-active]': {
+      color: position === 'absolute' ? theme.white : 'black !important',
+    },
+
     '&:hover': {
         backgroundColor: 'transparent'
     },
-    
-    '&[data-active]': {
-      borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-      color: position === 'absolute' ? theme.white : theme.black,
-    },
-
-    '&[data-active]:hover': {
-      borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-    }
   },
 
   tabLink: {
     pointerEvents: 'auto',
     textDecoration: 'none',
-    color: theme.white,
     display: 'flex',
   },
 
   active: {
-    borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
+    color: '#cc342c'
+    // borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
 
-    '&:hover': {
-      borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-    },
+    // '&:hover': {
+    //   borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
+    // },
+    
+    // '&[data-active]': {
+    //   borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
+    // },
+
+    // '&[data-active]:hover': {
+    //   borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
+    // }
+  },
+
+  categoryList: {
+    backgroundColor: 'rgba(0, 0, 0, .8)',
+    backdropFilter: position === 'fixed' && 'saturate(200%) blur(30px)',
+    boxShadow: position === 'fixed' && 'rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem',
+    border: 'none',
+    borderRadius: '0 !important',
+    fontFamily: 'Gotham',
+    fontWeight: '800',
+    padding: '2rem',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    color: theme.white
   }
 }));
 
@@ -139,6 +156,7 @@ const NavBar = ({ user }) => {
     
     const [opened, { toggle }] = useDisclosure(false);
     const [userMenuOpened, setUserMenuOpened] = useState(false);
+    const [drawerOpened, setDrawerOpened] = useState(false);
     const [position, setPosition] = useState('absolute')
     const {classes, theme, cx} = useStyles({position});
     const active = location.pathname;
@@ -148,7 +166,6 @@ const NavBar = ({ user }) => {
         link: '/',
     }, {
         name: 'Categorías',
-        link: '/categories',
     }, {
         name: 'Proyectos',
         link: '/projects',
@@ -158,11 +175,34 @@ const NavBar = ({ user }) => {
     }];
 
     const items = tabs?.map((tab, key) => (
-      <Link to={tab.link} className={classes.tabLink} key={key}>
+      <Box key={key}>{tab.name === 'Categorías' ? 
+        <Menu offset={20} trigger='hover' closeDelay={200}>
+          <Menu.Target>
+            <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab} onClick={() => setDrawerOpened(true)} zIndex={1100}>
+              <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}<IconChevronDown /></Text>
+            </Tabs.Tab>
+          </Menu.Target>
+          <Menu.Dropdown className={classes.categoryList}>
+            <Grid>
+              <Grid.Col span={4}>Deportes</Grid.Col>
+              <Grid.Col span={4}>Musica</Grid.Col>
+              <Grid.Col span={4}>Botanico</Grid.Col>
+              <Grid.Col span={4}>Zodíaco</Grid.Col>
+              <Grid.Col span={4}>Animales</Grid.Col>
+              <Grid.Col span={4}>Logos</Grid.Col>
+              <Grid.Col span={4}>Frases</Grid.Col>
+              <Grid.Col span={4}>Fantasía</Grid.Col>
+              <Grid.Col span={4}>Películas y Series</Grid.Col>
+            </Grid>
+          </Menu.Dropdown>
+        </Menu>
+      :
+      <Link to={tab.link} className={classes.tabLink}>
           <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={cx(classes.tab, {[classes.active]: active === tab.link})}>
-              <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}{tab.name === 'Categorías' && <IconChevronDown />}</Text>
+              <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}</Text>
           </Tabs.Tab>
       </Link>
+      }</Box>
     ));
 
     useEffect(() => {
@@ -181,15 +221,19 @@ const NavBar = ({ user }) => {
                 }}>
                   <Image src={logo} height={40}/>
               </Anchor>
-              <Tabs classNames={{
-                    root: classes.tabs,
-                    tabsList: classes.tabsList
-                }}
-                >
-                  <Tabs.List>{items}</Tabs.List>
-              </Tabs>
-            </Group>            
+            </Group>
 
+            <Group>
+
+            </Group>
+            <Tabs classNames={{
+                root: classes.tabs,
+                tabsList: classes.tabsList
+              }}
+              onTabChange={null}
+            >
+              <Tabs.List>{items}</Tabs.List>
+            </Tabs>
             <Group>
               <UnstyledButton className={classes.burger}>
                 <IconMenu2 onClick={toggle} className={classes.burgerIcon} size={30} color={position === 'absolute' ? 'white' : 'black'}/>
