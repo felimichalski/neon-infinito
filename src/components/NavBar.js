@@ -23,7 +23,7 @@ const useStyles = createStyles((theme, {position}) => ({
     transform: 'translateX(-50%)',
     borderRadius: '.5rem',
     backdropFilter: position === 'fixed' && 'saturate(200%) blur(30px)',
-    boxShadow: position === 'fixed' && 'rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem',
+    boxShadow: position === 'fixed' && '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
     transition: 'background-color .3s ease-out',
   },
 
