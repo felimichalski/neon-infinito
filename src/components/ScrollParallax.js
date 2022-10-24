@@ -26,7 +26,6 @@ const ScrollParallax = () => {
             <ParallaxBannerLayer image={bg} speed={-20} />
             <Overlay opacity={.6} color='#000' zIndex={20}/>
             <ParallaxBannerLayer className={classes.content}>
-                <Title>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, beatae!</Title>
             </ParallaxBannerLayer>
         </ParallaxBanner>
     )

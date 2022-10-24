@@ -1,16 +1,18 @@
 import FeaturedCard from "./FeaturedCard"
-import { createStyles, Box, Title, Container, Anchor } from "@mantine/core";
+import { createStyles, Box, Title, Container, Anchor, Grid } from "@mantine/core";
 import { IconChevronRight } from '@tabler/icons';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'
 
 import img1 from '../../assets/products/VECTORES-01.png'
 import img2 from '../../assets/products/VECTORES-02.png'
 import img3 from '../../assets/products/VECTORES-03.png'
 import img4 from '../../assets/products/VECTORES-04.png'
+import { MotionConfig } from "framer-motion";
 
 const useStyles = createStyles((theme) => ({
     container: {
-        padding: '2rem',
+        padding: '4rem',
         backgroundColor: 'white',
     },
 
@@ -41,10 +43,6 @@ const useStyles = createStyles((theme) => ({
             color: 'white'
         }
     },
-
-    cardsBox: {
-        display: 'flex',
-    }
 }))
 
 const Featured = () => {
@@ -52,6 +50,30 @@ const Featured = () => {
     const {classes} = useStyles();
 
     const data = [
+        {
+            image: img1,
+            category: 'Series',
+            title: 'Neon 1',
+            price: '100'
+        },
+        {
+            image: img2,
+            category: 'Deportes',
+            title: 'Neon 2',
+            price: '200'
+        },
+        {
+            image: img3,
+            category: 'Fantasía',
+            title: 'Neon 3',
+            price: '300'
+        },
+        {
+            image: img4,
+            category: 'Animales',
+            title: 'Neon 4',
+            price: '400'
+        },
         {
             image: img1,
             category: 'Series',
@@ -84,11 +106,21 @@ const Featured = () => {
             <Title className={classes.title}>Productos Destacados</Title>
             <Anchor component={Link} to='/products/featured' className={classes.titleLink} variant='text'>Ver Todo<IconChevronRight /></Anchor>
         </Container>
-        <Box className={classes.cardsBox}>
+        <Grid>
             {data?.map((card, key) => (
-                <FeaturedCard data={card} key={key}/>
+                <Grid.Col span={3} key={key}>
+                    <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: .3 * key }}
+                    viewport={{ once: true }}
+                    >
+                        <FeaturedCard data={card}/>
+                    </motion.div>
+                </Grid.Col>
             ))}
-        </Box>
+        </Grid>
+        
     </Box>
   )
 }

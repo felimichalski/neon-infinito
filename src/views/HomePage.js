@@ -24,9 +24,9 @@ const HomePage = () => {
             <NavBar user={user}/>
             <TitleBox />
             <Info />
-            {/* <ScrollParallax /> */}
             <Featured />
-            {/* <Info /> */}
+            <ScrollParallax />
+            <Featured />
         </>
     )
 }
