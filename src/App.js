@@ -20,9 +20,11 @@ function App() {
           theme={{
             colorScheme: 'dark',
             focusRing: 'never',
-            fontFamily: ['Gotham', 'Essence Round'],
-            fontFamilyMonospace: ['Gotham', 'Essence Round'],
-            headings: ['Gotham', 'Essence Round'],
+            fontFamily: ['Gotham', 'Vow'],
+            fontFamilyMonospace: ['Gotham', 'Vow'],
+            headings: {
+              fontFamily: ['Gotham', 'Vow']
+            }
           }}
         >
           <CustomFonts />

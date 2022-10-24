@@ -104,7 +104,7 @@ const useStyles = createStyles((theme, {position}) => ({
   },
 
   active: {
-    color: '#cc342c'
+    color: position === 'absolute' ? '#324ACF' : '#253AA2'
     // borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
 
     // '&:hover': {
@@ -125,7 +125,6 @@ const useStyles = createStyles((theme, {position}) => ({
     backdropFilter: position === 'fixed' && 'saturate(200%) blur(30px)',
     boxShadow: position === 'fixed' && 'rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem',
     border: 'none',
-    borderRadius: '0 !important',
     fontFamily: 'Gotham',
     fontWeight: '800',
     padding: '2rem',

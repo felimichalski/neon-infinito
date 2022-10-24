@@ -8,10 +8,16 @@ const useStyles = createStyles({
     container: {
         width: '100%',
         display: 'flex',
-        justifyContent: 'center',
-        padding: '0 5rem 5rem 5rem',
+        justifyContent: 'space-between',
         boxSizing: 'border-box',
-        backgroundColor: 'black',
+        position: 'relative',
+        backgroundColor: 'white',
+    },
+    
+    cardsBox: {
+        display: 'flex',
+        backgroundColor: 'transparent',
+        zIndex: 100
     }
 })
 
@@ -23,22 +29,25 @@ const Info = () => {
         {
             icon: <CiMedal size='6rem'/>,
             title: 'Calidad',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores'
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
+            background: '#2A3FB7'
         },
         {
             icon: <BiSupport size='6rem'/>,
             title: 'Soporte',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores'
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
+            background: '#273BAB'
         },
         {
             icon: <RiSecurePaymentLine size='6rem'/>,
             title: 'Seguridad',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores'
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
+            background: '#253AA2'
         },
     ]
 
     const cards = info?.map((card, key) => (
-        <InfoCard key={key} icon={card.icon} title={card.title} description={card.description}/>
+        <InfoCard key={key} icon={card.icon} title={card.title} description={card.description} background={card.background}/>
     ))
 
     return (

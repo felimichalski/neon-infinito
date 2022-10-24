@@ -1,11 +1,21 @@
 import { createStyles, Container, Title, Text, Button, BackgroundImage, Overlay, Box } from '@mantine/core'
+import { ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
 
 import background from '../assets/bg3.jpg'
 
 const useStyles = createStyles((theme) => ({
+    parallax: {
+      minHeight: '130vh',
+      color: theme.white
+    },
+
+    ct: {
+      zIndex: 30,
+      display: 'flex',
+      alignItems: 'center'
+    },
 
     root: {
-      minHeight: '50vh',
       height: 'min-content',
       width: '100%',
       position: 'relative',
@@ -13,25 +23,14 @@ const useStyles = createStyles((theme) => ({
       alignItems: 'center'
     },
       
-    backgroundImage: {
-      zIndex: -2,
-      position: 'absolute',
-      height: '100%',
-    },
-    
     container: {
       padding: '3rem 5rem',
       margin: '4rem auto',
-      textAlign: 'center',
     },
 
     inner: {
       display: 'flex',
-      justifyContent: 'space-between',
-  
-      [theme.fn.smallerThan('md')]: {
-        flexDirection: 'column',
-      },
+      textAlign: 'center'
     },
   
     image: {
@@ -65,8 +64,10 @@ const useStyles = createStyles((theme) => ({
       fontWeight: 900,
       lineHeight: 1.05,
       width: '60%',
-      margin: '0 auto',
       fontSize: 55,
+      margin: '0 auto',
+      WebkitTextFillColor: 'transparent',
+      WebkitTextStroke: '1px white',
   
       [theme.fn.smallerThan('md')]: {
         maxWidth: '100%',
@@ -75,11 +76,15 @@ const useStyles = createStyles((theme) => ({
       },
     },
 
+    filledTitle: {
+      WebkitTextFillColor: 'white',
+    },
+
     control: {
-      paddingLeft: 50,
-      paddingRight: 50,
       fontFamily: `Gotham`,
       fontSize: 22,
+      color: theme.white,
+      padding: '0 2rem',
   
       [theme.fn.smallerThan('md')]: {
         width: '100%',
@@ -93,43 +98,43 @@ const TitleBox = () => {
 
   return (
       <Box className={classes.root}>
-          <BackgroundImage src={background} className={classes.backgroundImage}>
-              <Overlay opacity={.2} blur={2} color="#000"/>
-              {/* <Overlay gradient={'linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 1) 100%)'}/> */}
-              <Overlay gradient={'linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 1) 100%)'}/>
-          </BackgroundImage>
-          <Container size="lg" className={classes.container}>
-              <div className={classes.inner}>
-                  <div className={classes.content}>
-                      <Title className={classes.title}>
-                      Lorem{' '}
-                      <Text
-                          component="span"
-                          inherit
+          <ParallaxBanner className={classes.parallax}>
+            <ParallaxBannerLayer image={background} speed={-20} />
+            <Overlay color='#000' opacity={.4} zIndex={2}/>
+            <ParallaxBannerLayer className={classes.ct}>
+              <Container size="lg" className={classes.container}>
+                  <div className={classes.inner}>
+                      <div className={classes.content}>
+                          <Title className={classes.title} variant=''>
+                          Lorem{' '}
+                          <Text
+                              component="span"
+                              inherit
+                              className={classes.filledTitle}
+                          >
+                              ipsum dolor sit amet
+                          </Text>{' '}
+                          consectetur adipisicing elit.
+                          </Title>
+
+                          {/* <Text className={classes.description} mt={30}>
+                          Maiores, vitae consectetur? Esse sint vitae debitis inventore, cumque perferendis iste consequuntur, nam repellat, animi blanditiis ratione error modi alias omnis velit.
+                          </Text> */}
+
+                          <Button
                           variant="gradient"
                           gradient={{ from: 'pink', to: 'yellow' }}
-                      >
-                          ipsum dolor sit amet
-                      </Text>{' '}
-                      consectetur adipisicing elit.
-                      </Title>
-
-                      {/* <Text className={classes.description} mt={30}>
-                      Maiores, vitae consectetur? Esse sint vitae debitis inventore, cumque perferendis iste consequuntur, nam repellat, animi blanditiis ratione error modi alias omnis velit.
-                      </Text> */}
-
-                      <Button
-                      variant="gradient"
-                      gradient={{ from: 'pink', to: 'yellow' }}
-                      size="xl"
-                      className={classes.control}
-                      mt={40}
-                      >
-                      Get started
-                      </Button>
+                          size="lg"
+                          className={classes.control}
+                          mt={40}
+                          >
+                          Get Started
+                          </Button>
+                      </div>
                   </div>
-              </div>
-          </Container>
+              </Container>
+            </ParallaxBannerLayer>
+          </ParallaxBanner>
       </Box>
     )
 }

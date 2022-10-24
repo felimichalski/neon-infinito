@@ -1,39 +1,42 @@
-import { Card, createStyles, Text, Title } from '@mantine/core';
+import { Card, createStyles, Text, Title, Box } from '@mantine/core';
 import React from 'react'
 
-const useStyles = createStyles({
+const useStyles = createStyles((theme, {background}) => ({
   card: {
     fontFamily: 'Gotham',
+    fontWeight: 500,
     display: 'flex',
-    flexDirection: 'column',
-    margin: '1rem',
-    backgroundColor: 'transparent',
-    borderRadius: '10px',
+    backgroundColor: background,
     textAlign: 'center',
     color: 'white',
-    fontSize: '1.2rem'
+    fontSize: '1.2rem',
   },
 
   title: {
     margin: '1rem 0',
-    fontWeight: 'bolder'
+    fontFamily: 'Gotham',
+    fontSize: '20px'
   },
 
   description: {
-    color: '#929292'
+    color: '#929292',
+    margin: '1rem 0',
+    fontSize: '15px'
   }
 
-});
+}));
 
-const InfoCard = ({icon, title, description}) => {
+const InfoCard = ({icon, title, description, background}) => {
 
-  const {classes} = useStyles();
+  const {classes} = useStyles({background});
 
   return (
-    <Card className={classes.card}>
-      <div>{icon}</div>
-      <Text className={classes.title}>{title}</Text>
-      <Text className={classes.description}>{description}</Text>
+    <Card className={classes.card} radius='none' p='xl'>
+      <div style={{margin: '1rem 0'}}>{icon}</div>
+      <Box>
+        <Title className={classes.title}>{title}</Title>
+        <Text className={classes.description}>{description}</Text>
+      </Box>
     </Card>
   )
 }

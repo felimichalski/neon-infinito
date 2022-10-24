@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
+
+import { useDocumentTitle } from '@mantine/hooks';
 
 import NavBar from '../components/NavBar'
 import CurvedCarousel from '../components/CurvedCarousel';
@@ -11,10 +13,10 @@ const HomePage = () => {
 
     const user = undefined;
 
+    useDocumentTitle('Neón Infinito - Inicio')
+
     useEffect(() => {
-        document.title = 'Neón Infinito - Inicio';
-        // document.body.style.backgroundColor = '#ECECEC'
-        document.body.style.backgroundColor = 'black'
+        document.body.style.backgroundColor = '#081025'
     }, []);
     
     return (
@@ -22,9 +24,9 @@ const HomePage = () => {
             <NavBar user={user}/>
             <TitleBox />
             <Info />
+            {/* <ScrollParallax /> */}
             <Featured />
-            <ScrollParallax />
-            <Info />
+            {/* <Info /> */}
         </>
     )
 }

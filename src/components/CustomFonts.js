@@ -18,11 +18,8 @@ import lightitalic2 from '../fonts/Gotham/GothamLightItalic.ttf'
 import medium from '../fonts/Gotham/GothamMedium.ttf'
 import mediumitalic2 from '../fonts/Gotham/GothamMediumItalic.ttf'
 
-import es from '../fonts/Essence-Round/essence round.ttf'
-import esbold from '../fonts/Essence-Round/essence round Bold.ttf'
-import eslight from '../fonts/Essence-Round/essence round Light.ttf'
-import esmedium from '../fonts/Essence-Round/essence round Medium.ttf'
-import esthin from '../fonts/Essence-Round/essence round Thin.ttf'
+import vow from '../fonts/Vow/Vow.ttf'
+import vowthin from '../fonts/Vow/Vow Thin.ttf'
 
 const CustomFonts = () => {
   return (
@@ -166,39 +163,18 @@ const CustomFonts = () => {
         },
         {
           '@font-face': {
-            fontFamily: 'Essence Round',
-            src: `url('${esthin}') format("truetype")`,
-            fontWeight: '100'
-          },
-        },
-        {
-          '@font-face': {
-            fontFamily: 'Essence Round',
-            src: `url('${eslight}') format("truetype")`,
-            fontWeight: '200'
-          },
-        },
-        {
-          '@font-face': {
-            fontFamily: 'Essence Round',
-            src: `url('${es}') format("truetype")`,
-            fontWeight: '300'
-          },
-        },
-        {
-          '@font-face': {
-            fontFamily: 'Essence Round',
-            src: `url('${esmedium}') format("truetype")`,
-            fontWeight: '400'
-          },
-        },
-        {
-          '@font-face': {
-            fontFamily: 'Essence Round',
-            src: `url('${esbold}') format("truetype")`,
+            fontFamily: 'Vow',
+            src: `url('${vow}') format("truetype")`,
             fontWeight: '500'
           },
         },
+        {
+          '@font-face': {
+            fontFamily: 'Vow',
+            src: `url('${vowthin}') format("truetype")`,
+            fontWeight: '400'
+          },
+        }
       ]}
     />
   );

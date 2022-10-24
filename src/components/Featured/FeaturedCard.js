@@ -1,58 +1,95 @@
-import { Card, Image, Text, Group, Badge, createStyles, Center, Button, Title } from '@mantine/core';
+import { Card, Image, Text, Indicator, createStyles, Title } from '@mantine/core';
+import { Link } from 'react-router-dom'
 
 const useStyles = createStyles((theme) => ({
   
   card: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-    margin: '1rem'
+    backgroundColor: 'transparent',
+    margin: '1rem',
+    fontFamily: 'Vow',
+    padding: '3rem 0',
+
+    '&:hover': {
+      boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
+      transform: 'scale(1.03)'
+    }
   },
 
   imageSection: {
-    borderBottom: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
+    padding: '10px',
+    marginBottom: '1rem'
+  },
+
+  image: {
+    borderRadius: '10px',
   },
 
   section: {
-    padding: theme.spacing.md,
-    borderTop: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
+    backgroundColor: 'transparent',
+    fontFamily: 'Gotham',
+    fontWeight: 500,
+    textAlign: 'center',
   },
 
-  priceSection: {
-    display: 'flex',
-    flexDirection: 'column'
+  category: {
+    fontFamily: 'Gotham',
+    textTransform: 'uppercase',
+  },
+
+  titleSection: {
+    margin: 0,
+    textAlign: 'center',
+  },
+
+  title: {
+    fontFamily: 'Gotham',
+    color: theme.black,
+    fontWeight: 600,
+  },
+
+  price: {
+    color: theme.black[4],
+    fontFamily: 'Gotham',
+    fontWeight: 500,
+    fontStyle: 'italic',
+    margin: '.5rem'
   }
 }));
 
 const FeaturedCard = ({data}) => {
   const { classes } = useStyles();
 
-  const { image, title, price } = data;
+  const { image, category, title, price } = data;
+
+  const setColor = (category) => {
+    switch(category){
+      case 'Deportes':
+        return 'blue';
+      case 'Fantasía':
+        return 'red';
+      case 'Series':
+        return 'violet';
+      default: 
+        return 'green';
+    }
+  }
 
   return (
-    <Card withBorder radius="md" className={classes.card}>
+    <Card className={classes.card} component={Link} to={'/product/' + title}>
       <Card.Section className={classes.imageSection}>
-        <Image src={image} alt="Tesla Model S" />
+        <Indicator position='bottom-center' label={category} size={30} className={classes.category} color={setColor(category)}>
+          <Image src={image} radius='md'/>
+        </Indicator>
       </Card.Section>
 
-      <Card.Section className={classes.title}>
-        <Title>{title}</Title>
+      <Card.Section className={classes.titleSection}>
+        <Title m={0} p={0} className={classes.title}>{title}</Title>
       </Card.Section>
 
       <Card.Section className={classes.section}>
-        <Group spacing={30} className={classes.priceSection}>
-          <div>
-            <Text size="xl" weight={700} sx={{ lineHeight: 1 }}>
-              ${price}
-            </Text>
-          </div>
-
-          <Button radius="xl" style={{ flex: 1 }}>
-            Comprar
-          </Button>
-        </Group>
+        <Text className={classes.price}>
+          ${price}
+        </Text>
       </Card.Section>
     </Card>
   );
