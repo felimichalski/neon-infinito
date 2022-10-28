@@ -103,23 +103,6 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
     display: 'flex',
   },
 
-  active: {
-    color: position === 'absolute' ? '#324ACF' : '#253AA2'
-    // borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-
-    // '&:hover': {
-    //   borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-    // },
-    
-    // '&[data-active]': {
-    //   borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-    // },
-
-    // '&[data-active]:hover': {
-    //   borderBottom: position === 'absolute' ? '2px solid white' : '2px solid black',
-    // }
-  },
-
   dropdown: {
     backgroundColor: 'white',
     boxShadow: position === 'fixed' && '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
@@ -223,7 +206,7 @@ const NavBar = ({ user }) => {
         // </Tabs.Tab>
       :
         <Link to={tab.link} className={classes.tabLink}>
-            <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={cx(classes.tab, {[classes.active]: active === tab.link})}>
+            <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab}>
                 <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}</Text>
             </Tabs.Tab>
         </Link>
