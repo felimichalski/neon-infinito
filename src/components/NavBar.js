@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Text, Box, Grid } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Text, Box, Grid, Title } from '@mantine/core';
+import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { IconChevronDown } from '@tabler/icons';
@@ -12,7 +12,7 @@ const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-const useStyles = createStyles((theme, {position}) => ({
+const useStyles = createStyles((theme, {position, height, width}) => ({
   header: {
     width: '90%',
     zIndex: 1000,
@@ -78,7 +78,7 @@ const useStyles = createStyles((theme, {position}) => ({
   },
 
   tab: {
-    fontFamily: 'Gotham',
+    fontFamily: 'Proxima Nova',
     fontWeight: '700',
     fontSize: '15px',
     backgroundColor: 'transparent',
@@ -120,17 +120,39 @@ const useStyles = createStyles((theme, {position}) => ({
     // }
   },
 
-  categoryList: {
-    backgroundColor: 'rgba(0, 0, 0, .8)',
-    backdropFilter: position === 'fixed' && 'saturate(200%) blur(30px)',
-    boxShadow: position === 'fixed' && 'rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem',
+  dropdown: {
+    backgroundColor: 'white',
+    boxShadow: position === 'fixed' && '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
     border: 'none',
-    fontFamily: 'Gotham',
-    fontWeight: '800',
-    padding: '2rem',
     textTransform: 'uppercase',
-    textAlign: 'center',
+    color: theme.black,
+    zIndex: 1100,
+    padding: 0,
+    left: '50% !important',
+    whiteSpace: 'nowrap',
+    transform: 'translateX(-50%)'
+  },
+
+  categoryList: {
+    display: 'flex',
+    padding: 0,
+  },
+
+  categorySection: {
+    padding: '.5rem 1rem',
     color: theme.white
+  },
+
+  categoryTitle: {
+    fontFamily: 'Proxima Nova',
+    fontWeight: 400
+  },
+
+  category: {
+    fontFamily: 'Vow',
+    fontWeight: '600',
+    display: 'flex',
+    alignItems: 'center',
   }
 }));
 
@@ -138,6 +160,8 @@ const NavBar = ({ user }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
+
+    const active = location.pathname;
 
     const handleSearch = (e) => {
       if(e.key.toLowerCase() === 'enter') {
@@ -154,53 +178,55 @@ const NavBar = ({ user }) => {
     }
     
     const [opened, { toggle }] = useDisclosure(false);
+    const {height, width} = useViewportSize();
     const [userMenuOpened, setUserMenuOpened] = useState(false);
-    const [drawerOpened, setDrawerOpened] = useState(false);
     const [position, setPosition] = useState('absolute')
-    const {classes, theme, cx} = useStyles({position});
-    const active = location.pathname;
+    const {classes, theme, cx} = useStyles({position, height, width});
 
     const tabs = [{
-        name: 'Inicio',
-        link: '/',
+      name: 'Galería',
+      link: '/galery'
+    },{
+      name: 'Categorías',
     }, {
-        name: 'Categorías',
+      name: 'Personalizados',
+      link: '/custom',
     }, {
-        name: 'Proyectos',
-        link: '/projects',
-    }, {
-        name: 'Contacto',
-        link: '/contact',
+      name: 'Contactanos',
+      link: '/contact',
     }];
 
     const items = tabs?.map((tab, key) => (
       <Box key={key}>{tab.name === 'Categorías' ? 
-        <Menu offset={20} trigger='hover' closeDelay={200}>
+        <Menu offset={23} closeDelay={200} radius='0' trigger='hover' withinPortal='true'>
           <Menu.Target>
-            <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab} onClick={() => setDrawerOpened(true)} zIndex={1100}>
+            <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab}>
               <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}<IconChevronDown /></Text>
             </Tabs.Tab>
           </Menu.Target>
-          <Menu.Dropdown className={classes.categoryList}>
-            <Grid>
-              <Grid.Col span={4}>Deportes</Grid.Col>
-              <Grid.Col span={4}>Musica</Grid.Col>
-              <Grid.Col span={4}>Botanico</Grid.Col>
-              <Grid.Col span={4}>Zodíaco</Grid.Col>
-              <Grid.Col span={4}>Animales</Grid.Col>
-              <Grid.Col span={4}>Logos</Grid.Col>
-              <Grid.Col span={4}>Frases</Grid.Col>
-              <Grid.Col span={4}>Fantasía</Grid.Col>
-              <Grid.Col span={4}>Películas y Series</Grid.Col>
-            </Grid>
+          <Menu.Dropdown className={classes.dropdown}>
+            <Box className={classes.categoryList}>
+              <Box className={classes.categorySection} style={{backgroundColor: '#ed6744'}}>
+                <Title className={classes.categoryTitle}>Neones de Diseño</Title>
+              </Box>
+              <Box className={classes.categorySection} style={{backgroundColor: '#4EAE8B'}}>
+                <Title className={classes.categoryTitle}>Artístico</Title>
+              </Box>
+              <Box className={classes.categorySection} style={{backgroundColor: '#586ce1'}}>
+                <Title className={classes.categoryTitle}>Algo Distinto</Title>
+              </Box>
+            </Box>
           </Menu.Dropdown>
         </Menu>
+        // <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab} onClick={() => setCollapseOpened(!collapseOpened)}>
+        //     <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}<IconChevronDown /></Text>
+        // </Tabs.Tab>
       :
-      <Link to={tab.link} className={classes.tabLink}>
-          <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={cx(classes.tab, {[classes.active]: active === tab.link})}>
-              <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}</Text>
-          </Tabs.Tab>
-      </Link>
+        <Link to={tab.link} className={classes.tabLink}>
+            <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={cx(classes.tab, {[classes.active]: active === tab.link})}>
+                <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}</Text>
+            </Tabs.Tab>
+        </Link>
       }</Box>
     ));
 
@@ -218,21 +244,20 @@ const NavBar = ({ user }) => {
               <Anchor component={Link} to="/" style={{
                   textDecoration: 'none'
                 }}>
-                  <Image src={logo} height={40}/>
+                  <Image src={logo} height={50}/>
               </Anchor>
             </Group>
 
             <Group>
-
-            </Group>
-            <Tabs classNames={{
+              <Tabs classNames={{
                 root: classes.tabs,
                 tabsList: classes.tabsList
               }}
               onTabChange={null}
-            >
-              <Tabs.List>{items}</Tabs.List>
-            </Tabs>
+              >
+                <Tabs.List>{items}</Tabs.List>
+              </Tabs>
+            </Group>
             <Group>
               <UnstyledButton className={classes.burger}>
                 <IconMenu2 onClick={toggle} className={classes.burgerIcon} size={30} color={position === 'absolute' ? 'white' : 'black'}/>
@@ -260,7 +285,7 @@ const NavBar = ({ user }) => {
                       Liked posts
                   </Menu.Item>
                   <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
-                      Saved posts
+                      Productos favoritos
                   </Menu.Item>
                   <Menu.Item icon={<IconMessage size={14} color={theme.colors.blue[6]} stroke={1.5} />}>
                       Your comments
@@ -297,6 +322,20 @@ const NavBar = ({ user }) => {
             </Group>
           </Container>
         </div>
+        {/* <Collapse in={collapseOpened} className={classes.categoryList} transitionDuration={600} transitionTimingFunction="linear" animateOpacity='false'>
+          <CloseButton aria-label="Close collapse" onClick={() => setCollapseOpened(!collapseOpened)} className={classes.closeButton} ref={collapseRef}/>
+          <Grid style={{padding: '2rem'}}>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Deportes</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Musica</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Botanico</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Zodíaco</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Animales</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Logos</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Frases</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Fantasía</Grid.Col>
+            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Películas y Series</Grid.Col>
+          </Grid>
+        </Collapse> */}
         <Sidebar opened={opened} toggle={toggle} className={classes.sidebar}/>
       </>
     );

@@ -1,7 +1,7 @@
 import InfoCard from './InfoCard'
 import { Box, createStyles } from '@mantine/core'
-import { CiMedal } from 'react-icons/ci';
-import { BiSupport } from 'react-icons/bi';
+import { TbTruckDelivery } from 'react-icons/tb'
+import { MdPayments } from 'react-icons/md';
 import { RiSecurePaymentLine } from 'react-icons/ri';
 
 const useStyles = createStyles({
@@ -27,20 +27,20 @@ const Info = () => {
 
     const info = [
         {
-            icon: <CiMedal size='6rem'/>,
-            title: 'Calidad',
+            icon: <TbTruckDelivery size='6rem'/>,
+            title: 'Envíos',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
             background: '#2A3FB7'
         },
         {
-            icon: <BiSupport size='6rem'/>,
-            title: 'Soporte',
+            icon: <MdPayments size='6rem'/>,
+            title: 'Métodos de pago',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
             background: '#273BAB'
         },
         {
             icon: <RiSecurePaymentLine size='6rem'/>,
-            title: 'Seguridad',
+            title: 'Compra protegida',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
             background: '#253AA2'
         },

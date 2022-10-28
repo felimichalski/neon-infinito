@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useDocumentTitle } from '@mantine/hooks';
 
@@ -9,15 +9,24 @@ import Info from '../components/Info/Info'
 import Featured from '../components/Featured/Featured';
 import ScrollParallax from '../components/ScrollParallax';
 
+import Loading from '../components/Loading';
+
 const HomePage = () => {
 
-    const user = undefined;
+    const [loading, setLoading] = useState(true)
+
+    const user = 'Felipe michalski';
 
     useDocumentTitle('Neón Infinito - Inicio')
 
     useEffect(() => {
-        document.body.style.backgroundColor = '#081025'
+        document.body.style.backgroundColor = '#081025';
+        setTimeout(() => {
+            setLoading(false)
+        }, 3000)
     }, []);
+
+    if(loading) return <Loading />
     
     return (
         <>

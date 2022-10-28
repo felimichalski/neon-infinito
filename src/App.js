@@ -20,10 +20,10 @@ function App() {
           theme={{
             colorScheme: 'dark',
             focusRing: 'never',
-            fontFamily: ['Gotham', 'Vow'],
-            fontFamilyMonospace: ['Gotham', 'Vow'],
+            fontFamily: ['Gotham', 'Proxima Nova'],
+            fontFamilyMonospace: ['Gotham', 'Proxima Nova'],
             headings: {
-              fontFamily: ['Gotham', 'Vow']
+              fontFamily: ['Gotham', 'Proxima Nova']
             }
           }}
         >

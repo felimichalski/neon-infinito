@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Card, Image, Text, Indicator, createStyles, Title } from '@mantine/core';
 import { Link } from 'react-router-dom'
 
@@ -8,6 +9,7 @@ const useStyles = createStyles((theme) => ({
     margin: '1rem',
     fontFamily: 'Vow',
     padding: '3rem 0',
+    transition: '.3s ease-in-out',
 
     '&:hover': {
       boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
@@ -50,15 +52,16 @@ const useStyles = createStyles((theme) => ({
   price: {
     color: theme.black[4],
     fontFamily: 'Gotham',
-    fontWeight: 500,
-    fontStyle: 'italic',
+    fontWeight: 400,
     margin: '.5rem'
   }
 }));
 
 const FeaturedCard = ({data}) => {
-  const { classes } = useStyles();
 
+  const navigate = useNavigate();
+
+  const { classes } = useStyles();
   const { image, category, title, price } = data;
 
   const setColor = (category) => {
@@ -77,7 +80,7 @@ const FeaturedCard = ({data}) => {
   return (
     <Card className={classes.card} component={Link} to={'/product/' + title}>
       <Card.Section className={classes.imageSection}>
-        <Indicator position='bottom-center' label={category} size={30} className={classes.category} color={setColor(category)}>
+        <Indicator position='bottom-center' label={category} size={30} className={classes.category} color={setColor(category)} radius='3px'>
           <Image src={image} radius='md'/>
         </Indicator>
       </Card.Section>

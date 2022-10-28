@@ -17,6 +17,7 @@ import light2 from '../fonts/Gotham/GothamLight.ttf'
 import lightitalic2 from '../fonts/Gotham/GothamLightItalic.ttf'
 import medium from '../fonts/Gotham/GothamMedium.ttf'
 import mediumitalic2 from '../fonts/Gotham/GothamMediumItalic.ttf'
+import nova from '../fonts/Proxima Nova/Proxima Nova Font.otf'
 
 import vow from '../fonts/Vow/Vow.ttf'
 import vowthin from '../fonts/Vow/Vow Thin.ttf'
@@ -173,6 +174,12 @@ const CustomFonts = () => {
             fontFamily: 'Vow',
             src: `url('${vowthin}') format("truetype")`,
             fontWeight: '400'
+          },
+        },
+        {
+          '@font-face': {
+            fontFamily: 'Proxima Nova',
+            src: `url('${nova}') format("opentype")`,
           },
         }
       ]}

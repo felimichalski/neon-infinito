@@ -1,23 +1,23 @@
 import FeaturedCard from "./FeaturedCard"
 import { createStyles, Box, Title, Container, Anchor, Grid } from "@mantine/core";
+import { Carousel } from "@mantine/carousel"
 import { IconChevronRight } from '@tabler/icons';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion'
 
 import img1 from '../../assets/products/VECTORES-01.png'
 import img2 from '../../assets/products/VECTORES-02.png'
 import img3 from '../../assets/products/VECTORES-03.png'
 import img4 from '../../assets/products/VECTORES-04.png'
-import { MotionConfig } from "framer-motion";
 
 const useStyles = createStyles((theme) => ({
     container: {
-        padding: '4rem',
+        padding: '4rem 0',
         backgroundColor: 'white',
     },
 
     titleBox: {
-        margin: '3rem 0',
+        padding: '0 3rem',
+        marginBottom: '2rem',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -28,8 +28,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     title: {
-        fontFamily: 'Gotham',
-        fontWeight: '600',
+        fontFamily: 'Proxima Nova',
     },
 
     titleLink: {
@@ -43,6 +42,11 @@ const useStyles = createStyles((theme) => ({
             color: 'white'
         }
     },
+
+    carousel: {
+        margin: 0,
+        padding: 0
+    }
 }))
 
 const Featured = () => {
@@ -106,20 +110,29 @@ const Featured = () => {
             <Title className={classes.title}>Productos Destacados</Title>
             <Anchor component={Link} to='/products/featured' className={classes.titleLink} variant='text'>Ver Todo<IconChevronRight /></Anchor>
         </Container>
-        <Grid>
+        <Carousel
+        height='max-content'
+        slideSize="20%"
+        slideGap="md"
+        breakpoints={[
+            { maxWidth: 'md', slideSize: '50%' },
+            { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+        ]}
+        loop
+        className={classes.carousel}
+        controlsOffset={20}
+        styles={{ container: {
+            margin: '0 3rem'
+        }, control: {
+            border: '1px solid black'
+        } }}
+        >
             {data?.map((card, key) => (
-                <Grid.Col span={3} key={key}>
-                    <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: .3 * key }}
-                    viewport={{ once: true }}
-                    >
-                        <FeaturedCard data={card}/>
-                    </motion.div>
-                </Grid.Col>
+                <Carousel.Slide key={key}>
+                    <FeaturedCard data={card}/>
+                </Carousel.Slide>
             ))}
-        </Grid>
+        </Carousel>
         
     </Box>
   )
