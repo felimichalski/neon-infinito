@@ -10,7 +10,7 @@ const defaultOptions = {
   },
 };
 
-const useFetch = (endpoint = "", options = defaultOptions) => {
+const useFetch = (endpoint = "", options) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -21,10 +21,10 @@ const useFetch = (endpoint = "", options = defaultOptions) => {
       const response = await fetch(endpoint, options);
       const data = await response.json();
 
-      if (!data.ok) {
-        const message = `An error ocurred: ${response.status}, code: ${data?.errcode}`;
-        throw new Error(message);
-      }
+      // if (!data.ok) {
+      //   const message = `An error ocurred: ${response.status}, code: ${data?.errcode}`;
+      //   throw new Error(message);
+      // }
 
       return setData(data);
     } catch (err) {
@@ -39,15 +39,10 @@ const useFetch = (endpoint = "", options = defaultOptions) => {
     fetchJSON();
   }, [fetchJSON]);
 
-  const refetch = () => {
-    fetchJSON();
-  };
-
   return {
     data,
     loading,
-    error,
-    refetch,
+    error
   };
 };
 

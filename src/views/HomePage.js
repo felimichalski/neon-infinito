@@ -15,23 +15,27 @@ const HomePage = () => {
 
     useDocumentTitle('Neón Infinito - Inicio')
     const [scrollLocked, setScrollLocked] = useScrollLock(true);
-    const [loading, setLoading] = useState(true)
-    const user = 'Felipe michalski';
+    const [loading, setLoading] = useState({})
+    const user = 'Felipe Michalski';
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-            setScrollLocked(false)
-        }, 3000)
-    }, []);
+        for(let prop in loading) {
+            if(loading[prop]) {
+                return;
+            }
+        }
+        setLoading(false)
+        setScrollLocked(false)
+    }, [loading]);
     
+
     return (
         <>
-            <LoadingOverlay style={{position: 'fixed'}} visible={loading} loader={<Image src={Loader} />} overlayColor='black' overlayOpacity={1} transitionDuration={1500} zIndex={100000}/>
-            <NavBar user={user}/>
-            <TitleBox />
-            <Info />
-            <Featured />
+            <LoadingOverlay style={{position: 'fixed'}} visible={loading} loader={<Image src={Loader} />} overlayColor='black' overlayOpacity={1} transitionDuration={500} zIndex={100000}/>
+            <NavBar user={user} load={loading} setLoading={setLoading}/>
+            <TitleBox load={loading} setLoading={setLoading}/>
+            <Info load={loading} setLoading={setLoading}/>
+            <Featured load={loading} setLoading={setLoading}/>
             <Divider my='md' mx='20%' size='xs' color='rgba(0,0,0,.4)'/>
             <ScrollParallax />
             <Featured />

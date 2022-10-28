@@ -49,7 +49,8 @@ const useStyles = createStyles((theme) => ({
 
     carousel: {
         margin: 0,
-        padding: 0
+        padding: 0,
+        paddingBottom: '3rem'
     }
 }))
 
@@ -133,7 +134,6 @@ const Featured = () => {
         controlsOffset={20}
         styles={{indicator: {
             backgroundColor: 'rgb(0, 0, 0)',
-            transform: 'translateY(1rem)'
         } }}
         >
             {data?.map((card, key) => (

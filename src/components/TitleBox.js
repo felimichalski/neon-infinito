@@ -1,5 +1,7 @@
-import { createStyles, Container, Title, Text, Button, BackgroundImage, Overlay, Box } from '@mantine/core'
+import { useEffect } from 'react';
+import { createStyles, Container, Title, Text, Button, Overlay, Box } from '@mantine/core'
 import { ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
+import useFetch from '../hooks/useFetch';
 
 import background from '../assets/bg3.jpg'
 
@@ -92,8 +94,25 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const TitleBox = () => {
+const options = {
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': '6b17ff0283mshec54d16709af7dap15824ejsn21f5bf5019bb',
+    'X-RapidAPI-Host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com'
+  }
+};
 
+
+const TitleBox = ({load, setLoading}) => {
+  
+  const {data, loading} = useFetch('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/', options)
+
+  useEffect(() => {
+    setLoading({...load, 
+      title: loading
+    })
+  }, [loading])
+  
   const { classes } = useStyles();
 
   return (

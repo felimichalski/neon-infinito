@@ -4,6 +4,7 @@ import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { IconChevronDown } from '@tabler/icons';
+import useFetch from '../hooks/useFetch';
 
 import Sidebar from './Sidebar'
 import logo from '../assets/logo.png'
@@ -139,12 +140,26 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   }
 }));
 
-const NavBar = ({ user }) => {
+const options = {
+  method: 'GET',
+  headers: {
+    'X-RapidAPI-Key': '6b17ff0283mshec54d16709af7dap15824ejsn21f5bf5019bb',
+    'X-RapidAPI-Host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com'
+  }
+};
+
+const NavBar = ({ user, load, setLoading }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
 
-    const active = location.pathname;
+    const {data, loading} = useFetch('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/', options)
+
+    useEffect(() => {
+      setLoading({...load, 
+        navbar: loading
+      })
+    }, [loading])
 
     const handleSearch = (e) => {
       if(e.key.toLowerCase() === 'enter') {
