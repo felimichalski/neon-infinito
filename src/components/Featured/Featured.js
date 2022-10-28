@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import FeaturedCard from "./FeaturedCard"
 import { createStyles, Box, Title, Container, Anchor, Grid } from "@mantine/core";
 import { Carousel } from "@mantine/carousel"
+import Autoplay from 'embla-carousel-autoplay';
 import { IconChevronRight } from '@tabler/icons';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +14,6 @@ import img4 from '../../assets/products/VECTORES-04.png'
 const useStyles = createStyles((theme) => ({
     container: {
         padding: '4rem 0',
-        backgroundColor: 'white',
     },
 
     titleBox: {
@@ -29,6 +30,9 @@ const useStyles = createStyles((theme) => ({
 
     title: {
         fontFamily: 'Proxima Nova',
+        fontWeight: 400,
+        letterSpacing: '.2rem',
+        margin: '0 auto'
     },
 
     titleLink: {
@@ -52,6 +56,7 @@ const useStyles = createStyles((theme) => ({
 const Featured = () => {
 
     const {classes} = useStyles();
+    const autoplay = useRef(Autoplay({ delay: 2000 }));
 
     const data = [
         {
@@ -108,23 +113,27 @@ const Featured = () => {
     <Box className={classes.container}>
         <Container className={classes.titleBox} fluid>
             <Title className={classes.title}>Productos Destacados</Title>
-            <Anchor component={Link} to='/products/featured' className={classes.titleLink} variant='text'>Ver Todo<IconChevronRight /></Anchor>
+            {/* <Anchor component={Link} to='/products/featured' className={classes.titleLink} variant='text'>Ver Todo<IconChevronRight /></Anchor> */}
         </Container>
         <Carousel
         height='max-content'
         slideSize="20%"
-        slideGap="md"
+        gap='sm'
+        align='center'
         breakpoints={[
-            { maxWidth: 'md', slideSize: '50%' },
-            { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+            { maxWidth: 'lg', slideSize: '25%', slideGap: 'xs' },
+            { maxWidth: 'md', slideSize: '33.333333%', slideGap: 0 },
+            { maxWidth: 'sm', slideSize: '50%', slideGap: 0 },
         ]}
         loop
         className={classes.carousel}
+        withControls={false}
+        withIndicators
+        // plugins={[autoplay.current]}
         controlsOffset={20}
-        styles={{ container: {
-            margin: '0 3rem'
-        }, control: {
-            border: '1px solid black'
+        styles={{indicator: {
+            backgroundColor: 'rgb(0, 0, 0)',
+            transform: 'translateY(1rem)'
         } }}
         >
             {data?.map((card, key) => (

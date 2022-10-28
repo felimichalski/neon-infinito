@@ -24,7 +24,14 @@ function App() {
             fontFamilyMonospace: ['Gotham', 'Proxima Nova'],
             headings: {
               fontFamily: ['Gotham', 'Proxima Nova']
-            }
+            },
+            breakpoints: {
+              xs: 350,
+              sm: 600,
+              md: 850,
+              lg: 1100,
+              xl: 1400,
+            },
           }}
         >
           <CustomFonts />

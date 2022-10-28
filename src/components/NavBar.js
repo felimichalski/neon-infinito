@@ -38,7 +38,7 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
     padding: `${theme.spacing.sm}px ${theme.spacing.sm}px`,
     cursor: 'default',
 
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       display: 'none',
     }
   },
@@ -52,7 +52,7 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   burger: {
     padding: `${theme.spacing.sm}px ${theme.spacing.sm}px`,
     cursor: 'default',
-    [theme.fn.largerThan('sm')]: {
+    [theme.fn.largerThan('md')]: {
       display: 'none',
     }
   },
@@ -62,13 +62,13 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   },
 
   sidebar: {
-    [theme.fn.largerThan('sm')]: {
+    [theme.fn.largerThan('md')]: {
       display: 'none',
     }
   },
 
   tabs: {
-    [theme.fn.smallerThan('sm')]: {
+    [theme.fn.smallerThan('md')]: {
       display: 'none',
     }
   },
