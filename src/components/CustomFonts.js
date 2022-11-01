@@ -19,9 +19,6 @@ import medium from '../fonts/Gotham/GothamMedium.ttf'
 import mediumitalic2 from '../fonts/Gotham/GothamMediumItalic.ttf'
 import nova from '../fonts/Proxima Nova/Proxima Nova Font.otf'
 
-import vow from '../fonts/Vow/Vow.ttf'
-import vowthin from '../fonts/Vow/Vow Thin.ttf'
-
 const CustomFonts = () => {
   return (
     <Global
@@ -160,20 +157,6 @@ const CustomFonts = () => {
             src: `url('${black}') format("opentype")`,
             fontStyle: 'normal',
             fontWeight: '900'
-          },
-        },
-        {
-          '@font-face': {
-            fontFamily: 'Vow',
-            src: `url('${vow}') format("truetype")`,
-            fontWeight: '500'
-          },
-        },
-        {
-          '@font-face': {
-            fontFamily: 'Vow',
-            src: `url('${vowthin}') format("truetype")`,
-            fontWeight: '400'
           },
         },
         {

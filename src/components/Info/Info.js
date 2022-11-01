@@ -1,60 +1,57 @@
-import InfoCard from './InfoCard'
-import { Box, createStyles } from '@mantine/core'
-import { TbTruckDelivery } from 'react-icons/tb'
+import { createStyles, SimpleGrid, Container} from '@mantine/core';
+import { TbTruckDelivery } from 'react-icons/tb';
 import { MdPayments } from 'react-icons/md';
 import { RiSecurePaymentLine } from 'react-icons/ri';
-
-const useStyles = createStyles({
-    container: {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        boxSizing: 'border-box',
-        position: 'relative',
-        backgroundColor: 'white',
+import InfoCard from './InfoCard';
+  
+  const mockdata = [
+    {
+      icon: TbTruckDelivery,
+      title: 'Envíos',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
     },
-    
-    cardsBox: {
-        display: 'flex',
-        backgroundColor: 'transparent',
+    {
+      icon: MdPayments,
+      title: 'Métodos de pago',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
+    },
+    {
+      icon: RiSecurePaymentLine,
+      title: 'Compra protegida',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
+    },
+  ];
+  
+  const useStyles = createStyles((theme) => ({  
+    card: {
+        backgroundColor: 'rgba(255, 255, 255, .8)',
+        backdropFilter: 'saturate(200%) blur(30px)',
+        boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.3)',
         zIndex: 100
-    }
-})
-
-const Info = () => {
-
-    const {classes} = useStyles();
-
-    const info = [
-        {
-            icon: <TbTruckDelivery size='6rem'/>,
-            title: 'Envíos',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
-            background: '#2A3FB7'
-        },
-        {
-            icon: <MdPayments size='6rem'/>,
-            title: 'Métodos de pago',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
-            background: '#273BAB'
-        },
-        {
-            icon: <RiSecurePaymentLine size='6rem'/>,
-            title: 'Compra protegida',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
-            background: '#253AA2'
-        },
-    ]
-
-    const cards = info?.map((card, key) => (
-        <InfoCard key={key} icon={card.icon} title={card.title} description={card.description} background={card.background}/>
-    ))
-
+    },
+  
+    cardTitle: {
+      '&::after': {
+        content: '""',
+        display: 'block',
+        backgroundColor: theme.fn.primaryColor(),
+        width: 45,
+        height: 2,
+        marginTop: theme.spacing.sm,
+      },
+    },
+  }));
+  
+  export default function Info() {
+    const { classes, theme } = useStyles();
+    const info = mockdata.map((info, key) => (
+      <InfoCard key={key} info={info}/>
+    ));
     return (
-        <Box className={classes.container}>
-            {cards}
-        </Box>
-    )
-}
-
-export default Info
+      <Container size="xl" mt={-40} fluid>
+        <SimpleGrid cols={3} spacing={50} mx={50} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
+          {info}
+        </SimpleGrid>
+      </Container>
+    );
+  }

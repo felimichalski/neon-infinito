@@ -15,7 +15,7 @@ const HomePage = () => {
 
     useDocumentTitle('Neón Infinito - Inicio')
     const [scrollLocked, setScrollLocked] = useScrollLock(true);
-    const [loading, setLoading] = useState({})
+    const [loading, setLoading] = useState()
     const user = 'Felipe Michalski';
 
     useEffect(() => {

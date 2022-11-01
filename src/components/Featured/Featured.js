@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import FeaturedCard from "./FeaturedCard"
-import { createStyles, Box, Title, Container, Anchor, Grid } from "@mantine/core";
+import { createStyles, Box, Title, Container } from "@mantine/core";
 import { Carousel } from "@mantine/carousel"
 import Autoplay from 'embla-carousel-autoplay';
 import { IconChevronRight } from '@tabler/icons';
@@ -30,9 +30,10 @@ const useStyles = createStyles((theme) => ({
 
     title: {
         fontFamily: 'Proxima Nova',
-        fontWeight: 400,
-        letterSpacing: '.2rem',
-        margin: '0 auto'
+        margin: '0 auto',
+        fontSize: '4rem',
+        fontWeight: 700,
+        color: '#black',
     },
 
     titleLink: {
