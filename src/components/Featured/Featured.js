@@ -1,10 +1,6 @@
-import { useRef } from "react";
 import FeaturedCard from "./FeaturedCard"
 import { createStyles, Box, Title, Container } from "@mantine/core";
 import { Carousel } from "@mantine/carousel"
-import Autoplay from 'embla-carousel-autoplay';
-import { IconChevronRight } from '@tabler/icons';
-import { Link } from 'react-router-dom';
 
 import img1 from '../../assets/products/VECTORES-01.png'
 import img2 from '../../assets/products/VECTORES-02.png'
@@ -49,16 +45,14 @@ const useStyles = createStyles((theme) => ({
     },
 
     carousel: {
-        margin: 0,
-        padding: 0,
-        paddingBottom: '3rem'
+        padding: '3rem',
+        boxSizing: 'border-box'
     }
 }))
 
 const Featured = () => {
 
     const {classes} = useStyles();
-    const autoplay = useRef(Autoplay({ delay: 2000 }));
 
     const data = [
         {
@@ -119,23 +113,21 @@ const Featured = () => {
         </Container>
         <Carousel
         height='max-content'
-        slideSize="20%"
-        gap='sm'
-        align='center'
+        slideSize="21%"
         breakpoints={[
             { maxWidth: 'lg', slideSize: '25%', slideGap: 'xs' },
             { maxWidth: 'md', slideSize: '33.333333%', slideGap: 0 },
             { maxWidth: 'sm', slideSize: '50%', slideGap: 0 },
         ]}
         loop
+        align='center'
         className={classes.carousel}
-        withControls={false}
         withIndicators
-        // plugins={[autoplay.current]}
-        controlsOffset={20}
         styles={{indicator: {
-            backgroundColor: 'rgb(0, 0, 0)',
-        } }}
+            backgroundColor: 'rgba(0, 0, 0)',
+        }, control: {
+            opacity: 1,
+        }}}
         >
             {data?.map((card, key) => (
                 <Carousel.Slide key={key}>
