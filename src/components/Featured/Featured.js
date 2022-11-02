@@ -9,12 +9,12 @@ import img4 from '../../assets/products/VECTORES-04.png'
 
 const useStyles = createStyles((theme) => ({
     container: {
-        padding: '4rem 0',
+        padding: '4rem 0 0 0',
+        margin: '10rem 0 0 0'
     },
 
     titleBox: {
         padding: '0 3rem',
-        marginBottom: '2rem',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -45,7 +45,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     carousel: {
-        padding: '3rem',
+        padding: '1rem 3rem 3rem 3rem',
         boxSizing: 'border-box'
     }
 }))

@@ -3,11 +3,11 @@ import { LoadingOverlay, Image, Divider } from '@mantine/core'
 import { useDocumentTitle, useScrollLock } from '@mantine/hooks';
 
 import NavBar from '../components/NavBar'
-import CurvedCarousel from '../components/CurvedCarousel';
 import TitleBox from '../components/TitleBox';
 import Info from '../components/Info/Info'
 import Featured from '../components/Featured/Featured';
-import ScrollParallax from '../components/ScrollParallax';
+import CommentsParallax from '../components/CommentsParallax';
+import Gallery from '../components/Gallery/Gallery';
 
 import Loader from '../assets/loader.gif'
 
@@ -36,8 +36,9 @@ const HomePage = () => {
             <TitleBox load={loading} setLoading={setLoading}/>
             <Info load={loading} setLoading={setLoading}/>
             <Featured load={loading} setLoading={setLoading}/>
-            <Divider my='md' mx='20%' size='xs' color='rgba(0,0,0,.4)'/>
-            <ScrollParallax />
+            <Divider my='5rem' mx='25%' size='xs' color='rgba(0,0,0,.2)'/>
+            <Gallery />
+            <CommentsParallax />
             <Featured />
         </>
     )
