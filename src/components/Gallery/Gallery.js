@@ -86,7 +86,8 @@ const useStyles = createStyles((theme, _, getRef) => ({
         opacity: 0,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderRadius: '7px'
     },
 
     icon: {
