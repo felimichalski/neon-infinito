@@ -2,12 +2,12 @@ import { Container, createStyles, Button, Overlay, Box } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { BsEye } from 'react-icons/bs'
 
-import img1 from '../../assets/gallery/img1.jpg'
-import img2 from '../../assets/gallery/img2.jpg'
-import img3 from '../../assets/gallery/img3.jpg'
-import img4 from '../../assets/gallery/img4.jpg'
-import img5 from '../../assets/gallery/img5.jpg'
-import img6 from '../../assets/gallery/img6.jpg'
+import img1 from '../assets/gallery/img1.jpg'
+import img2 from '../assets/gallery/img2.jpg'
+import img3 from '../assets/gallery/img3.jpg'
+import img4 from '../assets/gallery/img4.jpg'
+import img5 from '../assets/gallery/img5.jpg'
+import img6 from '../assets/gallery/img6.jpg'
 
 const useStyles = createStyles((theme, _, getRef) => ({
     container: {
@@ -92,22 +92,24 @@ const useStyles = createStyles((theme, _, getRef) => ({
 
     icon: {
         color: theme.white,
-        fontSize: '4rem'
+        fontSize: '4rem',
+        cursor: 'pointer'
     },
 
     button: {
         margin: '0 auto',
         backgroundColor: 'transparent',
-        border: '1px solid black',
+        border: '1px solid white',
         textTransform: 'uppercase',
-        color: theme.black,
+        color: theme.white,
         fontFamily: 'Gotham',
         fontSize: '15px',
         fontWeight: 500,
 
         '&:hover': {
-            backgroundColor: theme.black,
-            color: theme.white
+            backgroundColor: theme.white,
+            fontWeight: 700,
+            color: theme.black,
         }
     }
 }))

@@ -7,7 +7,7 @@ import TitleBox from '../components/TitleBox';
 import Info from '../components/Info/Info'
 import Featured from '../components/Featured/Featured';
 import CommentsParallax from '../components/CommentsParallax';
-import Gallery from '../components/Gallery/Gallery';
+import Gallery from '../components/Gallery';
 
 import Loader from '../assets/loader.gif'
 
@@ -19,6 +19,10 @@ const HomePage = () => {
     const user = 'Felipe Michalski';
 
     useEffect(() => {
+        document.body.style.backgroundColor = 'black'
+    }, [])
+
+    useEffect(() => {
         for(let prop in loading) {
             if(loading[prop]) {
                 return;
@@ -26,16 +30,15 @@ const HomePage = () => {
         }
         setLoading(false)
         setScrollLocked(false)
-    }, [loading]);
-    
+    }, [loading]);    
 
     return (
         <>
             <LoadingOverlay style={{position: 'fixed'}} visible={loading} loader={<Image src={Loader} />} overlayColor='black' overlayOpacity={1} transitionDuration={500} zIndex={100000}/>
-            <NavBar user={user} load={loading} setLoading={setLoading}/>
-            <TitleBox load={loading} setLoading={setLoading}/>
-            <Info load={loading} setLoading={setLoading}/>
-            <Featured load={loading} setLoading={setLoading}/>
+            <NavBar user={user} />
+            <TitleBox />
+            <Info />
+            <Featured />
             <Divider my='5rem' mx='25%' size='xs' color='rgba(0,0,0,.2)'/>
             <Gallery />
             <CommentsParallax />

@@ -4,7 +4,6 @@ import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { IconChevronDown } from '@tabler/icons';
-import useFetch from '../hooks/useFetch';
 
 import Sidebar from './Sidebar'
 import logo from '../assets/logo.png'
@@ -140,26 +139,10 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   }
 }));
 
-const options = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': '6b17ff0283mshec54d16709af7dap15824ejsn21f5bf5019bb',
-    'X-RapidAPI-Host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com'
-  }
-};
-
-const NavBar = ({ user, load, setLoading }) => {
+const NavBar = ({ user }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
-
-    const {data, loading} = useFetch('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/', options)
-
-    useEffect(() => {
-      setLoading({...load, 
-        navbar: loading
-      })
-    }, [loading])
 
     const handleSearch = (e) => {
       if(e.key.toLowerCase() === 'enter') {
@@ -204,13 +187,13 @@ const NavBar = ({ user, load, setLoading }) => {
           </Menu.Target>
           <Menu.Dropdown className={classes.dropdown}>
             <Box className={classes.categoryList}>
-              <Box className={classes.categorySection} style={{backgroundColor: '#ed6744'}}>
+              <Box className={classes.categorySection} style={{backgroundColor: '#1F5CE7'}}>
                 <Title className={classes.categoryTitle}>Neones de Diseño</Title>
               </Box>
-              <Box className={classes.categorySection} style={{backgroundColor: '#4EAE8B'}}>
+              <Box className={classes.categorySection} style={{backgroundColor: '#2E1FE7'}}>
                 <Title className={classes.categoryTitle}>Artístico</Title>
               </Box>
-              <Box className={classes.categorySection} style={{backgroundColor: '#586ce1'}}>
+              <Box className={classes.categorySection} style={{backgroundColor: '#3700B3'}}>
                 <Title className={classes.categoryTitle}>Algo Distinto</Title>
               </Box>
             </Box>
