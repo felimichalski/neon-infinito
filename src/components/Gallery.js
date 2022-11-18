@@ -12,7 +12,7 @@ import img6 from '../assets/gallery/img6.jpg'
 const useStyles = createStyles((theme, _, getRef) => ({
     container: {
         width: '90%',
-        margin: '0 auto 10rem auto',
+        margin: '10rem auto 10rem auto',
         display: 'flex',
         flexDirection: 'column'
     },
@@ -29,6 +29,8 @@ const useStyles = createStyles((theme, _, getRef) => ({
 
     imageContainer: {
         position: 'relative',
+        border: '2px solid white',
+        borderRadius: '7px',
 
         [theme.fn.largerThan('md')]: {
             '&:nth-of-type(1)': {

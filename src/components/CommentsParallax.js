@@ -28,7 +28,9 @@ const useStyles = createStyles((theme) => ({
     quote: {
         border: '1px solid gray',
         borderRadius: '7px',
-        fontFamily: 'Proxima nova'
+        fontFamily: 'Proxima nova',
+        backgroundColor: 'rgba(255, 255, 255, .6)',
+        color: theme.black
     }
 }))
 
@@ -52,32 +54,32 @@ const CommentsParallax = () => {
                 draggable={false}
                 slideGap='xl'>
                     <Carousel.Slide>
-                        <Blockquote color="blue" cite="Cliente" className={classes.quote}>
+                        <Blockquote color="dark" cite="Cliente" className={classes.quote} styles={{cite: {color: 'rgba(0, 0, 0, .8)'}}}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis non quaerat voluptatum beatae facere quasi quis accusamus illum accusantium inventore?
                         </Blockquote>
                     </Carousel.Slide>
                     <Carousel.Slide>
-                        <Blockquote color="blue" cite="Cliente" className={classes.quote}>
+                        <Blockquote color="dark" cite="Cliente" className={classes.quote} styles={{cite: {color: 'rgba(0, 0, 0, .8)'}}}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis non quaerat voluptatum beatae facere quasi quis accusamus illum accusantium inventore?
                         </Blockquote>
                     </Carousel.Slide>
                     <Carousel.Slide>
-                        <Blockquote color="blue" cite="Cliente" className={classes.quote}>
+                        <Blockquote color="dark" cite="Cliente" className={classes.quote} styles={{cite: {color: 'rgba(0, 0, 0, .8)'}}}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis non quaerat voluptatum beatae facere quasi quis accusamus illum accusantium inventore?
                         </Blockquote>
                     </Carousel.Slide>
                     <Carousel.Slide>
-                        <Blockquote color="blue" cite="Cliente" className={classes.quote}>
+                        <Blockquote color="dark" cite="Cliente" className={classes.quote} styles={{cite: {color: 'rgba(0, 0, 0, .8)'}}}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis non quaerat voluptatum beatae facere quasi quis accusamus illum accusantium inventore?
                         </Blockquote>
                     </Carousel.Slide>
                     <Carousel.Slide>
-                        <Blockquote color="blue" cite="Cliente" className={classes.quote}>
+                        <Blockquote color="dark" cite="Cliente" className={classes.quote} styles={{cite: {color: 'rgba(0, 0, 0, .8)'}}}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis non quaerat voluptatum beatae facere quasi quis accusamus illum accusantium inventore?
                         </Blockquote>
                     </Carousel.Slide>
                     <Carousel.Slide>
-                        <Blockquote color="blue" cite="Cliente" className={classes.quote}>
+                        <Blockquote color="dark" cite="Cliente" className={classes.quote} styles={{cite: {color: 'rgba(0, 0, 0, .8)'}}}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis non quaerat voluptatum beatae facere quasi quis accusamus illum accusantium inventore?
                         </Blockquote>
                     </Carousel.Slide>

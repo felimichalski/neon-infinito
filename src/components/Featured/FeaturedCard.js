@@ -75,11 +75,11 @@ const FeaturedCard = ({data}) => {
 
   return (
     <Card className={classes.card} component={Link} to={'/product/' + title} radius='5px'>
-      <Card.Section className={classes.imageSection}>
+      {/* <Card.Section className={classes.imageSection}>
           <Indicator position='bottom-start' label={category} size={30} className={classes.category} color={setColor(category)} radius='none' styles={{common: {margin: 0, webkitTransform: 'none', transform: 'none', borderTopRightRadius: '5px'}}}>
             <Image src={image} styles={{root: {borderTopLeftRadius: '5px', borderTopRightRadius: '5px',}}}/>
           </Indicator>
-      </Card.Section>
+      </Card.Section> */}
 
       <Card.Section className={classes.titleSection}>
         <Title m={0} p={0} className={classes.title}>{title}</Title>

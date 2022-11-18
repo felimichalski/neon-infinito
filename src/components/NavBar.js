@@ -4,6 +4,7 @@ import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { IconChevronDown } from '@tabler/icons';
+import CartModal from './CartModal';
 
 import Sidebar from './Sidebar'
 import logo from '../assets/logo.png'
@@ -161,6 +162,7 @@ const NavBar = ({ user }) => {
     const [opened, { toggle }] = useDisclosure(false);
     const {height, width} = useViewportSize();
     const [userMenuOpened, setUserMenuOpened] = useState(false);
+    const [cartModalOpened, setCartModalOpened] = useState(false);
     const [position, setPosition] = useState('absolute')
     const {classes, theme, cx} = useStyles({position, height, width});
 
@@ -297,7 +299,7 @@ const NavBar = ({ user }) => {
               }
               <UnstyledButton className={classes.iconContainer}>
                 <Indicator size={20} radius='xl' label='0' inline styles={{ indicator: {padding: '0'} }}>
-                  <IconShoppingCart size={30} stroke={1.5} className={classes.icon}/>
+                  <IconShoppingCart size={30} stroke={1.5} className={classes.icon} onClick={() => setCartModalOpened(!cartModalOpened)}/>
                 </Indicator>
               </UnstyledButton>
             </Group>
@@ -318,6 +320,7 @@ const NavBar = ({ user }) => {
           </Grid>
         </Collapse> */}
         <Sidebar opened={opened} toggle={toggle} className={classes.sidebar}/>
+        <CartModal opened={cartModalOpened} setOpened={setCartModalOpened}/>
       </>
     );
 }
