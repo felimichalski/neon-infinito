@@ -9,7 +9,7 @@ export const featuredFetch = createAsyncThunk(
     "featured/featuredFetch",
     async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/featured`,{
+            const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}featured`,{
                 mode: 'cors'
             })
             const data = await response.json();
