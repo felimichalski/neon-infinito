@@ -107,43 +107,43 @@ const TitleBox = () => {
 
   return (
       <Box className={classes.root}>
-          <ParallaxBanner className={classes.parallax}>
-            <ParallaxBannerLayer image={background} speed={-20} />
-            <Overlay color='#000' opacity={.4} zIndex={2}/>
-            <ParallaxBannerLayer className={classes.ct}>
-              <Container size="lg" className={classes.container}>
-                  <div className={classes.inner}>
-                      <div className={classes.content}>
-                          <Title className={classes.title} variant=''>
-                          Lorem{' '}
-                          <Text
-                              component="span"
-                              inherit
-                              className={classes.filledTitle}
-                          >
-                              ipsum dolor sit amet
-                          </Text>{' '}
-                          consectetur adipisicing elit.
-                          </Title>
+        <ParallaxBanner className={classes.parallax}>
+          <ParallaxBannerLayer image={background} speed={-20} />
+          <Overlay color='#000' opacity={.4} zIndex={2}/>
+          <ParallaxBannerLayer className={classes.ct}>
+            <Container size="lg" className={classes.container}>
+                <div className={classes.inner}>
+                    <div className={classes.content}>
+                        <Title className={classes.title} variant=''>
+                        Lorem{' '}
+                        <Text
+                            component="span"
+                            inherit
+                            className={classes.filledTitle}
+                        >
+                            ipsum dolor sit amet
+                        </Text>{' '}
+                        consectetur adipisicing elit.
+                        </Title>
 
-                          {/* <Text className={classes.description} mt={30}>
-                          Maiores, vitae consectetur? Esse sint vitae debitis inventore, cumque perferendis iste consequuntur, nam repellat, animi blanditiis ratione error modi alias omnis velit.
-                          </Text> */}
+                        {/* <Text className={classes.description} mt={30}>
+                        Maiores, vitae consectetur? Esse sint vitae debitis inventore, cumque perferendis iste consequuntur, nam repellat, animi blanditiis ratione error modi alias omnis velit.
+                        </Text> */}
 
-                          <Button
-                          variant="gradient"
-                          gradient={{ from: 'pink', to: 'yellow' }}
-                          size="lg"
-                          className={classes.control}
-                          mt={40}
-                          >
-                          Get Started
-                          </Button>
-                      </div>
-                  </div>
-              </Container>
-            </ParallaxBannerLayer>
-          </ParallaxBanner>
+                        <Button
+                        variant="gradient"
+                        gradient={{ from: 'pink', to: 'yellow' }}
+                        size="lg"
+                        className={classes.control}
+                        mt={40}
+                        >
+                        Get Started
+                        </Button>
+                    </div>
+                </div>
+            </Container>
+          </ParallaxBannerLayer>
+        </ParallaxBanner>
       </Box>
     )
 }

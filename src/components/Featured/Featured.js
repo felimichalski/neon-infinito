@@ -89,7 +89,7 @@ const useStyles = createStyles((theme) => ({
 
 const Featured = () => {
 
-    const [ready, setReady] = useState(false)
+    const [products, setProducts] = useState(undefined)
 
     const {classes} = useStyles();
     const ref = useRef();
@@ -99,14 +99,10 @@ const Featured = () => {
 
     useEffect(() => {
         if(data.status === 'success') {
-            setReady(true)
+            setProducts(data.items)
         }
     }, [data])
-
-    if(!ready) {
-        return <h1>Loading</h1>
-    }
-
+    
     return (
         <Box className={classes.container}>
             <Container className={classes.titleBox} fluid>
@@ -127,32 +123,32 @@ const Featured = () => {
                         Destacados
                     </motion.span>
                 </Title>
-                {/* <Anchor component={Link} to='/products/featured' className={classes.titleLink} variant='text'>Ver Todo<IconChevronRight /></Anchor> */}
             </Container>
-            <Carousel
-            height='max-content'
-            slideSize="21.5%"
-            breakpoints={[
-                { maxWidth: 'lg', slideSize: '25%', slideGap: 'xs' },
-                { maxWidth: 'md', slideSize: '33.333333%', slideGap: 0 },
-                { maxWidth: 'sm', slideSize: '50%', slideGap: 0 },
-            ]}
-            loop
-            align='center'
-            className={classes.carousel}
-            styles={{indicator: {
-                backgroundColor: 'rgba(0, 0, 0)',
-            }, control: {
-                opacity: 1,
-            }}}
-            >
-                {data.items?.map((card, key) => (
-                    <Carousel.Slide key={key}>
-                        <FeaturedCard data={card}/>
-                    </Carousel.Slide>
-                ))}
-            </Carousel>
-            
+            {products && 
+                <Carousel
+                height='max-content'
+                slideSize="21.5%"
+                breakpoints={[
+                    { maxWidth: 'lg', slideSize: '25%', slideGap: 'xs' },
+                    { maxWidth: 'md', slideSize: '33.333333%', slideGap: 0 },
+                    { maxWidth: 'sm', slideSize: '50%', slideGap: 0 },
+                ]}
+                loop
+                align='center'
+                className={classes.carousel}
+                styles={{indicator: {
+                    backgroundColor: 'rgba(0, 0, 0)',
+                }, control: {
+                    opacity: 1,
+                }}}
+                >
+                    {products.map((card, key) => (
+                        <Carousel.Slide key={key}>
+                            <FeaturedCard data={card}/>
+                        </Carousel.Slide>
+                    ))}
+                </Carousel>
+            }
         </Box>
     )
 }

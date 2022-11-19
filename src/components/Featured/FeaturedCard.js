@@ -1,6 +1,8 @@
 import { Card, Image, Text, Indicator, createStyles, Title, Button } from '@mantine/core';
 import { Link } from 'react-router-dom'
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../features/slices/cartSlice';
 
 const useStyles = createStyles((theme, _, getRef) => ({
   
@@ -12,7 +14,6 @@ const useStyles = createStyles((theme, _, getRef) => ({
   category: {
     fontFamily: 'Gotham',
     textTransform: 'uppercase',
-    borderBottomLeftRadius: '5px'
   },
 
   titleSection: {
@@ -58,7 +59,9 @@ const useStyles = createStyles((theme, _, getRef) => ({
 const FeaturedCard = ({data}) => {
 
   const { classes } = useStyles();
-  const { image, category, title, price } = data;
+  const { id, image, category, title, price } = data;
+
+  const dispatch = useDispatch();
 
   const setColor = (category) => {
     switch(category){
@@ -73,13 +76,18 @@ const FeaturedCard = ({data}) => {
     }
   }
 
+  const handeClick = (e) => {
+    e.preventDefault();
+    dispatch(addToCart(data))
+  }
+
   return (
     <Card className={classes.card} component={Link} to={'/product/' + title} radius='5px'>
-      {/* <Card.Section className={classes.imageSection}>
+      <Card.Section className={classes.imageSection}>
           <Indicator position='bottom-start' label={category} size={30} className={classes.category} color={setColor(category)} radius='none' styles={{common: {margin: 0, webkitTransform: 'none', transform: 'none', borderTopRightRadius: '5px'}}}>
-            <Image src={image} styles={{root: {borderTopLeftRadius: '5px', borderTopRightRadius: '5px',}}}/>
+            <Image src={image} styles={{root: {borderTopLeftRadius: '5px', borderTopRightRadius: '5px',}}} fit='cover'/>
           </Indicator>
-      </Card.Section> */}
+      </Card.Section>
 
       <Card.Section className={classes.titleSection}>
         <Title m={0} p={0} className={classes.title}>{title}</Title>
@@ -92,7 +100,7 @@ const FeaturedCard = ({data}) => {
       </Card.Section>
 
       <Card.Section className={classes.buySection}>
-        <Button color='dark' className={classes.cartButton} onClick={(e) => e.preventDefault()} leftIcon={<MdOutlineAddShoppingCart size='1.3rem'/>}>Añadir</Button>
+        <Button color='dark' className={classes.cartButton} onClick={(e) => handeClick(e)} leftIcon={<MdOutlineAddShoppingCart size='1.3rem'/>}>Añadir</Button>
       </Card.Section>
     </Card>
   );

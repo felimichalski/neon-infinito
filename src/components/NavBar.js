@@ -4,8 +4,10 @@ import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { IconChevronDown } from '@tabler/icons';
-import CartModal from './CartModal';
+import { useSelector } from 'react-redux';
+import { motion } from "framer-motion";
 
+import CartModal from './CartModal/CartModal';
 import Sidebar from './Sidebar'
 import logo from '../assets/logo.png'
 
@@ -38,6 +40,7 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   iconContainer: {
     padding: `${theme.spacing.sm}px ${theme.spacing.sm}px`,
     cursor: 'default',
+    position: 'relative',
 
     [theme.fn.smallerThan('md')]: {
       display: 'none',
@@ -48,6 +51,22 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
     color: position === 'absolute' ? theme.white : theme.black,
     cursor: 'pointer',
     transition: 'color .3s ease-out',
+  },
+
+  cartIndicator: {
+    position: 'absolute',
+    borderRadius: '50%',
+    backgroundColor: '#C70039',
+    color: theme.white,
+    top: '5px',
+    right: '5px',
+    fontSize: '12px',
+    fontWeight: 700,
+    width: '20px',
+    height: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   burger: {
@@ -159,12 +178,15 @@ const NavBar = ({ user }) => {
       }
     }
     
+    const data = useSelector((state) => state.cart)
+
     const [opened, { toggle }] = useDisclosure(false);
     const {height, width} = useViewportSize();
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const [cartModalOpened, setCartModalOpened] = useState(false);
     const [position, setPosition] = useState('absolute')
     const {classes, theme, cx} = useStyles({position, height, width});
+    const [cartIndicator, setCartIndicator] = useState();
 
     const tabs = [{
       name: 'Galería',
@@ -178,6 +200,16 @@ const NavBar = ({ user }) => {
       name: 'Contactanos',
       link: '/contact',
     }];
+
+    useEffect(() => {
+      setCartIndicator(data.cartTotalQuantity)
+    }, [data])
+
+    useEffect(() => {
+      handleScroll();
+      document.addEventListener('scroll', handleScroll);
+      return () => document.removeEventListener('scroll', handleScroll)
+    }, [])
 
     const items = tabs?.map((tab, key) => (
       <Box key={key}>{tab.name === 'Categorías' ? 
@@ -213,12 +245,6 @@ const NavBar = ({ user }) => {
       }</Box>
     ));
 
-    useEffect(() => {
-      handleScroll();
-      document.addEventListener('scroll', handleScroll);
-      return () => document.removeEventListener('scroll', handleScroll)
-    }, [])
-
     return (
       <>
         <div className={classes.header}>
@@ -231,7 +257,7 @@ const NavBar = ({ user }) => {
               </Anchor>
             </Group>
 
-            <Group>
+            <Group position='center'>
               <Tabs classNames={{
                 root: classes.tabs,
                 tabsList: classes.tabsList
@@ -298,27 +324,12 @@ const NavBar = ({ user }) => {
               </UnstyledButton>
               }
               <UnstyledButton className={classes.iconContainer}>
-                <Indicator size={20} radius='xl' label='0' inline styles={{ indicator: {padding: '0'} }}>
-                  <IconShoppingCart size={30} stroke={1.5} className={classes.icon} onClick={() => setCartModalOpened(!cartModalOpened)}/>
-                </Indicator>
+                <motion.span onChange={() => console.log('hi')} className={classes.cartIndicator}>{cartIndicator}</motion.span>
+                <IconShoppingCart size={30} stroke={1.5} className={classes.icon} onClick={() => setCartModalOpened(!cartModalOpened)}/>
               </UnstyledButton>
             </Group>
           </Container>
         </div>
-        {/* <Collapse in={collapseOpened} className={classes.categoryList} transitionDuration={600} transitionTimingFunction="linear" animateOpacity='false'>
-          <CloseButton aria-label="Close collapse" onClick={() => setCollapseOpened(!collapseOpened)} className={classes.closeButton} ref={collapseRef}/>
-          <Grid style={{padding: '2rem'}}>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Deportes</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Musica</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Botanico</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Zodíaco</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Animales</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Logos</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Frases</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Fantasía</Grid.Col>
-            <Grid.Col span={3} className={classes.category}><IconChevronRight/> Películas y Series</Grid.Col>
-          </Grid>
-        </Collapse> */}
         <Sidebar opened={opened} toggle={toggle} className={classes.sidebar}/>
         <CartModal opened={cartModalOpened} setOpened={setCartModalOpened}/>
       </>
