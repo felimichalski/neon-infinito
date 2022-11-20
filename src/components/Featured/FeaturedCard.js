@@ -59,7 +59,7 @@ const useStyles = createStyles((theme, _, getRef) => ({
 const FeaturedCard = ({data}) => {
 
   const { classes } = useStyles();
-  const { id, image, category, title, price } = data;
+  const { id, image, category, name, price } = data;
   console.log(data)
 
   const dispatch = useDispatch();
@@ -91,7 +91,7 @@ const FeaturedCard = ({data}) => {
       </Card.Section>
 
       <Card.Section className={classes.titleSection}>
-        <Title m={0} p={0} className={classes.title}>{title}</Title>
+        <Title m={0} p={0} className={classes.title}>{name}</Title>
       </Card.Section>
 
       <Card.Section className={classes.priceSection}>
