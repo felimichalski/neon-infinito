@@ -60,7 +60,6 @@ const FeaturedCard = ({data}) => {
 
   const { classes } = useStyles();
   const { id, image, category, name, price } = data;
-  console.log(data)
 
   const dispatch = useDispatch();
 
