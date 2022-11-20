@@ -1,12 +1,24 @@
-import { Grid, Image, Button, createStyles, Divider, Box, Title, UnstyledButton } from "@mantine/core";
+import { Grid, Image, Button, createStyles, Divider, Box, Title, UnstyledButton, Text, ActionIcon, NumberInput } from "@mantine/core";
 import { useDispatch } from "react-redux"
-import { removeFromCart } from '../../features/slices/cartSlice'
+import { addToCart, decreaseCart, removeFromCart } from '../../features/slices/cartSlice'
 import { IoMdClose } from 'react-icons/io'
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 
 const useStyles = createStyles((theme) => ({
   column: {
     display: 'flex',
     alignItems: 'center'
+  },
+
+  category: {
+    fontWeight: 600,
+    opacity: .7,
+    fontFamily: 'Proxima Nova'
+  },
+
+  quantityInput: {
+    outline: 'none',
+    cursor: 'default'
   },
 
   deleteButton: {
@@ -44,10 +56,20 @@ function CartProduct({data}) {
         </Grid.Col>
         <Grid.Col span={3} className={classes.column} style={{flexDirection: 'column', alignItems: 'flex-start'}}>
           <Title>{name}</Title>
-          {category.name}
+          <Text color={category.color} className={classes.category}>{category.name}</Text>
         </Grid.Col>
         <Grid.Col span={3} className={classes.column} style={{justifyContent: 'center'}}>
-          {cartQuantity}
+          <ActionIcon size={42} variant="subtle" onClick={() => dispatch(decreaseCart(data))} className={classes.actionIcon}>
+            <AiOutlineMinus />
+          </ActionIcon>
+
+          <Text mx={10}>
+            {cartQuantity}
+          </Text>
+
+          <ActionIcon size={42} variant="subtle" onClick={() => dispatch(addToCart(data))} className={classes.actionIcon}>
+            <AiOutlinePlus />
+          </ActionIcon>
         </Grid.Col>
         <Grid.Col span={2} className={classes.column} style={{justifyContent: 'center'}}>
           ${price}

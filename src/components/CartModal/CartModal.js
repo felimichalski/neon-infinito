@@ -79,7 +79,7 @@ const CartModal = ({opened, setOpened}) => {
             {items.length > 0 ?
             <> 
             <UnstyledButton className={classes.clearButton} mb={20} pr={20}><span style={{cursor: 'pointer'}} onClick={handleClearClick}><FaTrashAlt style={{marginRight: '7px'}}/>Vaciar</span></UnstyledButton>
-            <ScrollArea.Autosize style={{ maxHeight: '45vh', fontFamily: 'Gotham' }} type='auto'>
+            <ScrollArea.Autosize style={{ maxHeight: '48vh', fontFamily: 'Gotham' }} type='auto'>
                 <Box mx={20}>
                     <Grid>
                         <Grid.Col span={1}></Grid.Col>

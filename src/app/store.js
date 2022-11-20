@@ -5,7 +5,7 @@ import cartReducer from '../features/slices/cartSlice'
 
 export const store = configureStore({
     reducer: {
-        featured: featuredReducer,
-        cart: cartReducer
+        cart: cartReducer,
+        featured: featuredReducer
     }
 });

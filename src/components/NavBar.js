@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createStyles, Container, Group, Menu, Tabs, Anchor, Indicator, UnstyledButton, Image, Text, Box, Grid, Title } from '@mantine/core';
+import { createStyles, Container, Group, Menu, Tabs, Anchor, UnstyledButton, Image, Text, Box, Grid, Title } from '@mantine/core';
 import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -324,7 +324,7 @@ const NavBar = ({ user }) => {
               </UnstyledButton>
               }
               <UnstyledButton className={classes.iconContainer}>
-                <motion.span onChange={() => console.log('hi')} className={classes.cartIndicator}>{cartIndicator}</motion.span>
+                <motion.span className={classes.cartIndicator}>{cartIndicator}</motion.span>
                 <IconShoppingCart size={30} stroke={1.5} className={classes.icon} onClick={() => setCartModalOpened(!cartModalOpened)}/>
               </UnstyledButton>
             </Group>

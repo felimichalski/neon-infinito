@@ -18,7 +18,7 @@ const HomePage = () => {
     const [scrollLocked, setScrollLocked] = useScrollLock(true);
     const [loading, setLoading] = useState(true)
     const user = 'Felipe Michalski';
-    const state = useSelector(state => state);
+    const state = useSelector((state) => state)
 
     useEffect(() => {
         document.body.style.backgroundColor = 'black'

@@ -42,6 +42,9 @@ const cartSlice = createSlice({
 
       if (state.cartItems[itemIndex].cartQuantity > 1) {
         state.cartItems[itemIndex].cartQuantity -= 1;
+        toast.error("Producto eliminado del carrito", {
+          position: "bottom-left",
+        });
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
         const nextCartItems = state.cartItems.filter(
           (item) => item.id !== action.payload.id
@@ -53,6 +56,7 @@ const cartSlice = createSlice({
           position: "bottom-left",
         });
       }
+      state.cartTotalQuantity -= 1
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     removeFromCart(state, action) {
