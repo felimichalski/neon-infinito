@@ -64,26 +64,13 @@ const FeaturedCard = ({data}) => {
 
   const dispatch = useDispatch();
 
-  const setColor = (category) => {
-    switch(category){
-      case 'Deportes':
-        return 'blue';
-      case 'Fantasía':
-        return 'red';
-      case 'Series':
-        return 'violet';
-      default: 
-        return 'green';
-    }
-  }
-
   const handeClick = (e) => {
     e.preventDefault();
     dispatch(addToCart(data))
   }
 
   return (
-    <Card className={classes.card} component={Link} to={'/product/' + title} radius='5px'>
+    <Card className={classes.card} component={Link} to={'/product/' + name} radius='5px'>
       <Card.Section className={classes.imageSection}>
           <Indicator position='bottom-start' label={category.name} size={30} className={classes.category} color={category.color} radius='none' styles={{common: {margin: 0, webkitTransform: 'none', transform: 'none', borderTopRightRadius: '5px'}}}>
             <Image src={image} styles={{root: {borderTopLeftRadius: '5px', borderTopRightRadius: '5px',}}} fit='cover'/>
