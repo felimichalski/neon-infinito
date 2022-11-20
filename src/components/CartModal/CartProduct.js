@@ -27,7 +27,7 @@ function CartProduct({data}) {
 
   const { classes } = useStyles();
 
-  const {id, image, title, price, cartQuantity, category} = data
+  const {id, image, name, price, cartQuantity, category} = data
   
   const dispatch = useDispatch();
 
@@ -42,9 +42,9 @@ function CartProduct({data}) {
         <Grid.Col span={1} className={classes.column}>
           <Image src={image} style={{border: '1px solid white'}}/>
         </Grid.Col>
-        <Grid.Col span={3} className={classes.column} style={{flexDirection: 'column'}}>
+        <Grid.Col span={3} className={classes.column} style={{flexDirection: 'column', alignItems: 'flex-start'}}>
+          <Title>{name}</Title>
           {category.name}
-          <Title>{title}</Title>
         </Grid.Col>
         <Grid.Col span={3} className={classes.column} style={{justifyContent: 'center'}}>
           {cartQuantity}
