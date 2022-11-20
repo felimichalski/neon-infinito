@@ -142,9 +142,9 @@ const Featured = () => {
                     opacity: 1,
                 }}}
                 >
-                    {products.map((card, key) => (
+                    {products.map((product, key) => (
                         <Carousel.Slide key={key}>
-                            <FeaturedCard data={card}/>
+                            <FeaturedCard data={product}/>
                         </Carousel.Slide>
                     ))}
                 </Carousel>

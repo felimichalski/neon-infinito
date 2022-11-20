@@ -60,6 +60,7 @@ const FeaturedCard = ({data}) => {
 
   const { classes } = useStyles();
   const { id, image, category, title, price } = data;
+  console.log(data)
 
   const dispatch = useDispatch();
 
@@ -84,7 +85,7 @@ const FeaturedCard = ({data}) => {
   return (
     <Card className={classes.card} component={Link} to={'/product/' + title} radius='5px'>
       <Card.Section className={classes.imageSection}>
-          <Indicator position='bottom-start' label={category} size={30} className={classes.category} color={setColor(category)} radius='none' styles={{common: {margin: 0, webkitTransform: 'none', transform: 'none', borderTopRightRadius: '5px'}}}>
+          <Indicator position='bottom-start' label={category.name} size={30} className={classes.category} color={category.color} radius='none' styles={{common: {margin: 0, webkitTransform: 'none', transform: 'none', borderTopRightRadius: '5px'}}}>
             <Image src={image} styles={{root: {borderTopLeftRadius: '5px', borderTopRightRadius: '5px',}}} fit='cover'/>
           </Indicator>
       </Card.Section>

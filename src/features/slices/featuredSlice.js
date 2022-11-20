@@ -30,7 +30,7 @@ const featuredSlice = createSlice({
         },
         [featuredFetch.fulfilled]: (state, action) => {
             state.status = 'success';
-            state.items = action.payload;
+            state.items = action.payload.result;
         },
         [featuredFetch.rejected]: (state, action) => {
             state.status = 'rejected'
