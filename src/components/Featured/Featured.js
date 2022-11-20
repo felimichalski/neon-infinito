@@ -1,12 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import FeaturedCard from "./FeaturedCard"
 import { createStyles, Box, Title, Container } from "@mantine/core";
 import { Carousel } from "@mantine/carousel"
 
 import { useInView, motion } from "framer-motion"
+import { featuredFetch } from "../../features/slices/featuredSlice";
 
 const useStyles = createStyles((theme) => ({
     container: {
@@ -96,6 +97,11 @@ const Featured = () => {
     const isInView = useInView(ref);
 
     const data = useSelector(state => state.featured)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(featuredFetch());
+    }, [])
 
     useEffect(() => {
         if(data.status === 'success') {

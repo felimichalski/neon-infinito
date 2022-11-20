@@ -43,7 +43,7 @@ function CartProduct({data}) {
           <Image src={image} style={{border: '1px solid white'}}/>
         </Grid.Col>
         <Grid.Col span={3} className={classes.column} style={{flexDirection: 'column'}}>
-          {category}
+          {category.name}
           <Title>{title}</Title>
         </Grid.Col>
         <Grid.Col span={3} className={classes.column} style={{justifyContent: 'center'}}>

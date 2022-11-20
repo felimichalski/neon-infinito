@@ -9,5 +9,3 @@ export const store = configureStore({
         cart: cartReducer
     }
 });
-
-store.dispatch(featuredFetch())
