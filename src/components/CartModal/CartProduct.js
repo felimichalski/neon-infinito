@@ -26,11 +26,11 @@ const useStyles = createStyles((theme) => ({
   },
 
   deleteIcon: {
-    color: theme.colors.gray[7],
+    color: theme.colors.gray[6],
     cursor: 'pointer',
 
     '&:hover': {
-      color: theme.colors.gray[5],
+      color: theme.colors.gray[4],
     }
   }
 }))

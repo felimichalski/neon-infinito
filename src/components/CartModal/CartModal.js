@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, useMantineTheme, createStyles, Title, ScrollArea, Button, Container, Grid, Divider, Box, UnstyledButton } from '@mantine/core';
+import { Modal, useMantineTheme, createStyles, Title, ScrollArea, Button, Container, Grid, Divider, Box, UnstyledButton, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 import { FaTrashAlt } from 'react-icons/fa'
@@ -10,7 +10,9 @@ import CartProduct from './CartProduct';
 const useStyles = createStyles((theme) => ({
     title: {
         textTransform: 'uppercase',
-        fontFamily: 'Gotham'
+        fontFamily: 'Gotham',
+        color: theme.white,
+        marginTop: '1rem'
     },
 
     clearButton: {
@@ -30,6 +32,13 @@ const useStyles = createStyles((theme) => ({
     modalButton: {
         fontWeight: 700,
         fontFamily: 'Proxima nova'
+    },
+
+    emptyBox: {
+        textAlign: 'center',
+        padding: '2rem 0',
+        width: '100%',
+        color: theme.colors.gray[6]
     }
 }))
 
@@ -60,6 +69,7 @@ const CartModal = ({opened, setOpened}) => {
         opened={opened}
         onClose={() => setOpened(false)}
         title={<Title className={classes.title}>Mi Carrito</Title>}
+        withCloseButton={false}
         centered
         overlayColor={theme.colors.dark[9]}
         overlayOpacity={0.55}
@@ -69,17 +79,21 @@ const CartModal = ({opened, setOpened}) => {
         zIndex={1001}
         styles={{
             modal: {
-                backgroundColor: 'rgba(0, 0, 0, .4)',
+                backgroundColor: 'rgba(50, 50, 50, .3)',
                 backdropFilter: 'saturate(200%) blur(30px)',
                 boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.3)',
                 maxWidth: '60rem'
+            },
+
+            header: {
+                justifyContent: 'center'
             }
         }}
         >
             {items.length > 0 ?
             <> 
             <UnstyledButton className={classes.clearButton} mb={20} pr={20}><span style={{cursor: 'pointer'}} onClick={handleClearClick}><FaTrashAlt style={{marginRight: '7px'}}/>Vaciar</span></UnstyledButton>
-            <ScrollArea.Autosize style={{ maxHeight: '48vh', fontFamily: 'Gotham' }} type='auto'>
+            <ScrollArea.Autosize style={{ maxHeight: '46vh', fontFamily: 'Gotham' }} type='auto'>
                 <Box mx={20}>
                     <Grid>
                         <Grid.Col span={1}></Grid.Col>
@@ -100,7 +114,10 @@ const CartModal = ({opened, setOpened}) => {
             </Container>
             </>
             :
-            <h1>No hay items seleccionados aun</h1>
+            <Box className={classes.emptyBox}>
+                <Title style={{textTransform: 'uppercase'}}>No hay items seleccionados aún</Title>
+                <Text style={{fontFamily: 'Proxima Nova'}}>Podrás ver los productos que agregues a tu carrito acá</Text>
+            </Box>
             }
         </Modal>
     );
