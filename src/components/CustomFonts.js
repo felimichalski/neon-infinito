@@ -19,6 +19,8 @@ import medium from '../fonts/Gotham/GothamMedium.ttf'
 import mediumitalic2 from '../fonts/Gotham/GothamMediumItalic.ttf'
 import nova from '../fonts/Proxima Nova/Proxima Nova Font.otf'
 
+import lexend from '../fonts/Lexend/Lexend-VariableFont_wght.ttf'
+
 const CustomFonts = () => {
   return (
     <Global
@@ -163,6 +165,12 @@ const CustomFonts = () => {
           '@font-face': {
             fontFamily: 'Proxima Nova',
             src: `url('${nova}') format("opentype")`,
+          },
+        },
+        {
+          '@font-face': {
+            fontFamily: 'Lexend',
+            src: `url('${lexend}') format("truetype")`,
           },
         }
       ]}

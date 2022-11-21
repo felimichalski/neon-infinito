@@ -1,24 +1,73 @@
-import { Container, createStyles, Divider, Grid, Image, Text } from "@mantine/core"
+import { Box, Container, createStyles, Divider, Grid, Image, List, Text, Title, ThemeIcon, TextInput, Button } from "@mantine/core"
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
+import { IconPhone, IconMapPin, IconMail, IconChevronRight } from '@tabler/icons';
 
 import logo from '../../assets/logo.png'
 
 import Icon from './Icon'
 
 const useStyles = createStyles((theme) => ({
-    root: {
-        backgroundColor: theme.colors.dark[7]
-    },
-
     column: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'flex-start',
+    },
+
+    footerTitle: {
+        color: theme.white,
+        textTransform: 'uppercase',
+        fontFamily: 'Lexend',
+        marginBottom: '1rem',
+        textAlign: 'center'
+    },
+
+    tabLink: {
+        textDecoration: 'none',
+        textTransform: 'uppercase',
+        fontFamily: 'Proxima Nova',
+        fontWeight: 400,
+        color: theme.colors.gray[7],
+
+        '&:hover': {
+            color: theme.colors.gray[6]
+        }
+    },
+
+    newsletterInput: {
+        fontSize: '16px'
+    },
+
+    newsletterButton: {
+        padding: 0,
+        borderTopRightRadius: '3px',
+        borderBottomRightRadius: '3px',
+        height: '100%',
+        backgroundColor: theme.white,
+        color: theme.black,
+
+        '&:hover': {
+            backgroundColor: theme.colors.gray[4],
+        }
+    },
+
+    newsletterText: {
+        color: theme.colors.gray[7],
+        fontFamily: 'Proxima Nova'
+    },
+
+    infoItem: {
+        fontFamily: 'Proxima Nova',
+        color: theme.colors.gray[7]
     },
 
     copyright: {
-        color: theme.white,
         textAlign: 'center',
+        width: '100%',
+    },
+
+    copyrightText: {
+        color: theme.white,
         fontFamily: 'Gotham',
         fontWeight: 700,
         fontSize: 14,
@@ -26,6 +75,20 @@ const useStyles = createStyles((theme) => ({
 }))
 
 function Footer() {
+
+    const tabs = [{
+        name: 'Galería',
+        link: '/galery'
+      },{
+        name: 'Categorías',
+        link: '/categories'
+      }, {
+        name: 'Personalizados',
+        link: '/custom',
+      }, {
+        name: 'Contactanos',
+        link: '/contact',
+      }];
 
     const { classes } = useStyles();
 
@@ -39,25 +102,81 @@ function Footer() {
     }, [data])
 
     return (
-        <footer className={classes.root}>
-            <Grid m={10}>
-                <Grid.Col span={3} p={20} className={classes.column}>
-                    <Image src={logo}/>
+        <footer>
+            <Grid m={5}>
+                <Grid.Col span={3} px={40} className={classes.column}>
+                    <Image src={logo} style={{margin: 'auto 0'}}/>
+                    <Divider orientation="vertical" ml={20}/>
                 </Grid.Col>
-                <Grid.Col span={3} className={classes.column}></Grid.Col>
-                <Grid.Col span={3} className={classes.column}></Grid.Col>
-                <Grid.Col span={3} className={classes.column}>
+                <Grid.Col span={3} className={classes.column} style={{flexDirection: 'column'}}>
+                    <Title className={classes.footerTitle}>
+                        Newsletter
+                    </Title>
+                    <TextInput
+                    placeholder="Tu mail"
+                    rightSection={<Button className={classes.newsletterButton} radius="none"><IconChevronRight /></Button>}
+                    className={classes.newsletterInput}
+                    radius='3px'
+                    rightSectionWidth='auto'
+                    size="xs"
+                    />
+                    <Text className={classes.newsletterText}>Suscribite a nuestro newsletter para no perderte ninguna oferta</Text>
+                </Grid.Col>
+                <Grid.Col span={3} className={classes.column} style={{flexDirection: 'column'}}>
+                    <Title className={classes.footerTitle}>
+                        Links
+                    </Title>
+                    <List listStyleType='none' mx='auto'>
+                        {tabs.map((tab, key) => (
+                            <List.Item>
+                                <Link className={classes.tabLink} key={key} to={tab.link}>{tab.name}</Link>
+                            </List.Item>
+                        ))}
+                    </List>
+                </Grid.Col>
+                <Grid.Col span={3} className={classes.column} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <List listStyleType='none' center spacing='sm'>
+                        <List.Item icon={
+                        <ThemeIcon color="gray" size={24} radius="xl">
+                            <IconPhone size={16} />
+                        </ThemeIcon>
+                        } className={classes.infoItem}>
+                            +54 11 2345-6789
+                        </List.Item>
+                        <List.Item icon={
+                        <ThemeIcon color="gray" size={24} radius="xl">
+                            <IconMapPin size={16} />
+                        </ThemeIcon>
+                        } className={classes.infoItem}>
+                            Buenos Aires, Argentina
+                        </List.Item>
+                        <List.Item icon={
+                        <ThemeIcon color="gray" size={24} radius="xl">
+                            <IconMail size={16} />
+                        </ThemeIcon>
+                        } className={classes.infoItem}>
+                            text@text.com
+                        </List.Item>
+                    </List>
                 </Grid.Col>
             </Grid>
-            <Container>
-                {icons.length > 0 &&
-                    icons.map((icon, key) => (
-                        <Icon data={icon} key={key}/>
-                    ))
-                }
-            </Container>
-            <Divider mx={40} my={20}/>
-            <Text pb={20} className={classes.copyright}>&copy; 2022 Copyright - Neon Infinito</Text>
+            <Divider
+            mx={20}
+            my={30}
+            labelPosition='center'
+            label={
+                <>
+                    {icons.length > 0 &&
+                        icons.map((icon, key) => (
+                            <Icon data={icon} key={key}/>
+                        ))
+                    }
+                </>
+            }
+            />
+            <Box className={classes.copyright}>
+                <Text pb={20} className={classes.copyrightText}>&copy; 2022 Copyright - Neon Infinito</Text>
+            </Box>
         </footer>
     )
 }

@@ -23,10 +23,10 @@ function App() {
           theme={{
             colorScheme: 'dark',
             focusRing: 'never',
-            fontFamily: ['Gotham', 'Proxima Nova'],
-            fontFamilyMonospace: ['Gotham', 'Proxima Nova'],
+            fontFamily: ['Gotham', 'Proxima Nova', 'Lexend'],
+            fontFamilyMonospace: ['Gotham', 'Proxima Nova', 'Lexend'],
             headings: {
-              fontFamily: ['Gotham', 'Proxima Nova']
+              fontFamily: ['Gotham', 'Proxima Nova', 'Lexend']
             },
             breakpoints: {
               xs: 350,

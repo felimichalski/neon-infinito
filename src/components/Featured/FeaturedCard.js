@@ -25,7 +25,7 @@ const useStyles = createStyles((theme, _, getRef) => ({
   },
 
   title: {
-    fontFamily: 'Proxima Nova',
+    fontFamily: 'Lexend',
     color: theme.black,
     fontWeight: 600,
   },
@@ -39,7 +39,6 @@ const useStyles = createStyles((theme, _, getRef) => ({
   price: {
     color: theme.black,
     fontFamily: 'Proxima nova',
-    fontWeight: 400,
     fontSize: '1.2rem',
     color: theme.colors.gray[6]
   },
