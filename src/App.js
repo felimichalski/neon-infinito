@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core'
 import { ParallaxProvider } from 'react-scroll-parallax';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 
@@ -45,7 +45,8 @@ function App() {
             <Route path="/projects" element={<HomePage />}/>
             <Route path="/contact" element={<HomePage />}/>
             <Route path="/search" element={<Search />}/>
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="/404" element={<ErrorPage />} />
+            <Route path="*" element={<Navigate replace to='/404' />} />
           </Routes>
         </MantineProvider>
       </ParallaxProvider>

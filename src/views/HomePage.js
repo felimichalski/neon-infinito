@@ -11,13 +11,15 @@ import CommentsParallax from '../components/CommentsParallax';
 import Gallery from '../components/Gallery';
 
 import Loader from '../assets/loader.gif'
+import Footer from '../components/Footer/Footer';
 
 const HomePage = () => {
+
+    const user = 'Felipe Michalski';
 
     useDocumentTitle('Neón Infinito - Inicio')
     const [scrollLocked, setScrollLocked] = useScrollLock(true);
     const [loading, setLoading] = useState(true)
-    const user = 'Felipe Michalski';
     const state = useSelector((state) => state)
 
     useEffect(() => {
@@ -42,6 +44,7 @@ const HomePage = () => {
             <Gallery />
             <CommentsParallax />
             <Featured />
+            <Footer />
         </>
     )
 }

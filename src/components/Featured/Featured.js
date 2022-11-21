@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import FeaturedCard from "./FeaturedCard"
 import { createStyles, Box, Title, Container } from "@mantine/core";
@@ -97,11 +97,6 @@ const Featured = () => {
     const isInView = useInView(ref);
 
     const data = useSelector(state => state.featured)
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(featuredFetch());
-    }, [])
 
     useEffect(() => {
         if(data.status === 'success') {

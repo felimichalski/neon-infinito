@@ -52,9 +52,15 @@ const cartSlice = createSlice({
 
         state.cartItems = nextCartItems;
 
-        toast.error("Producto eliminado del carrito", {
-          position: "bottom-left",
-        });
+        if(state.cartItems.length > 0) {
+          toast.error("Producto eliminado del carrito", {
+            position: "bottom-left",
+          });
+        } else {
+          toast.error("Carrito vacío", {
+            position: "bottom-left",
+          });
+        }
       }
       state.cartTotalQuantity -= 1
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
