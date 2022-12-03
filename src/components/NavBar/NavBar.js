@@ -3,13 +3,13 @@ import { createStyles, Container, Group, Menu, Tabs, Anchor, UnstyledButton, Ima
 import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { IconChevronDown } from '@tabler/icons';
 import { useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 
-import CartModal from './CartModal/CartModal';
+import CartModal from '../CartModal/CartModal';
 import Sidebar from './Sidebar'
-import logo from '../assets/logo.png'
+import logo from '../../assets/logo.png'
+import CategoriesMenu from './CategoriesMenu';
 
 const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -121,41 +121,6 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
     pointerEvents: 'auto',
     textDecoration: 'none',
     display: 'flex',
-  },
-
-  dropdown: {
-    backgroundColor: 'white',
-    boxShadow: position === 'fixed' && '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
-    border: 'none',
-    textTransform: 'uppercase',
-    color: theme.black,
-    zIndex: 1100,
-    padding: 0,
-    left: '50% !important',
-    whiteSpace: 'nowrap',
-    transform: 'translateX(-50%)'
-  },
-
-  categoryList: {
-    display: 'flex',
-    padding: 0,
-  },
-
-  categorySection: {
-    padding: '.5rem 1rem',
-    color: theme.white
-  },
-
-  categoryTitle: {
-    fontFamily: 'Proxima Nova',
-    fontWeight: 400
-  },
-
-  category: {
-    fontFamily: 'Vow',
-    fontWeight: '600',
-    display: 'flex',
-    alignItems: 'center',
   }
 }));
 
@@ -213,29 +178,7 @@ const NavBar = ({ user }) => {
 
     const items = tabs?.map((tab, key) => (
       <Box key={key}>{tab.name === 'Categorías' ? 
-        <Menu offset={23} closeDelay={200} radius='0' trigger='hover' withinPortal='true'>
-          <Menu.Target>
-            <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab}>
-              <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}<IconChevronDown /></Text>
-            </Tabs.Tab>
-          </Menu.Target>
-          <Menu.Dropdown className={classes.dropdown}>
-            <Box className={classes.categoryList}>
-              <Box className={classes.categorySection} style={{backgroundColor: '#1F5CE7'}}>
-                <Title className={classes.categoryTitle}>Neones de Diseño</Title>
-              </Box>
-              <Box className={classes.categorySection} style={{backgroundColor: '#2E1FE7'}}>
-                <Title className={classes.categoryTitle}>Artístico</Title>
-              </Box>
-              <Box className={classes.categorySection} style={{backgroundColor: '#3700B3'}}>
-                <Title className={classes.categoryTitle}>Algo Distinto</Title>
-              </Box>
-            </Box>
-          </Menu.Dropdown>
-        </Menu>
-        // <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab} onClick={() => setCollapseOpened(!collapseOpened)}>
-        //     <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}<IconChevronDown /></Text>
-        // </Tabs.Tab>
+        <CategoriesMenu tab={tab} position={position}/>
       :
         <Link to={tab.link} className={classes.tabLink}>
             <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab}>

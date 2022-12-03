@@ -89,9 +89,9 @@ const FeaturedCard = ({data}) => {
         </Text>
       </Card.Section>
 
-      <Card.Section px={10} py={10} style={{backgroundColor: 'white'}}>
+      {/* <Card.Section px={10} py={10} style={{backgroundColor: 'white'}}>
         <Divider />
-      </Card.Section>
+      </Card.Section> */}
 
       <Card.Section className={classes.buySection}>
         <Button color='dark' className={classes.cartButton} onClick={(e) => handeClick(e)} leftIcon={<MdOutlineAddShoppingCart size='1.3rem'/>}>Añadir</Button>

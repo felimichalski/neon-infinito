@@ -29,8 +29,7 @@ const useStyles = createStyles((theme, _, getRef) => ({
 
     imageContainer: {
         position: 'relative',
-        border: '2px solid white',
-        borderRadius: '7px',
+        borderRadius: '3px',
 
         [theme.fn.largerThan('md')]: {
             '&:nth-of-type(1)': {
@@ -75,7 +74,7 @@ const useStyles = createStyles((theme, _, getRef) => ({
     image: {
         width: '100%',
         height: '100%',
-        borderRadius: '7px'
+        borderRadius: '3px'
     },
 
     imageOverlay: {
@@ -89,7 +88,7 @@ const useStyles = createStyles((theme, _, getRef) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: '7px'
+        borderRadius: '3px'
     },
 
     icon: {

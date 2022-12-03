@@ -3,7 +3,7 @@ import { LoadingOverlay, Image } from '@mantine/core'
 import { useDocumentTitle, useScrollLock } from '@mantine/hooks';
 import { useSelector } from 'react-redux';
 
-import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBar/NavBar'
 import TitleBox from '../components/TitleBox';
 import Info from '../components/Info/Info'
 import Featured from '../components/Featured/Featured';
