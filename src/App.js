@@ -53,6 +53,9 @@ function App() {
               <Route path="/404" element={<ErrorPage />} />
               <Route path="/backoffice" element={<BackofficeLayout />}>
                   <Route index element={<Dashboard />}/>
+                  <Route path='users' element={<Dashboard />}/>
+                  <Route path='products' element={<Dashboard />}/>
+                  <Route path='other' element={<Dashboard />}/>
               </Route>
               <Route path="*" element={<Navigate replace to='/404' />} />
             </Routes>

@@ -3,22 +3,22 @@ import { IconChartBar, IconUsers, IconListDetails, IconCirclePlus } from '@table
 const navConfig = [
   {
     title: 'Estadísticas',
-    path: '/dashboard',
+    path: '/backoffice',
     icon: <IconChartBar />,
   },
   {
     title: 'Usuarios',
-    path: '/dashboard/user',
+    path: '/backoffice/users',
     icon: <IconUsers />,
   },
   {
     title: 'Products',
-    path: '/dashboard/products',
+    path: '/backoffice/products',
     icon: <IconListDetails />,
   },
   {
     title: 'Otros',
-    path: '/dashboard/others',
+    path: '/backoffice/other',
     icon: <IconCirclePlus />,
   }
 ];
