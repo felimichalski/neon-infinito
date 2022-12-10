@@ -16,58 +16,23 @@ const useStyles = createStyles((theme) => ({
     },
 
     titleBox: {
-        padding: '0 3rem',
         alignItems: 'center',
         width: '100%',
         boxSizing: 'border-box',
-        fontFamily: 'Gotham',
         textTransform: 'uppercase',
-        height: '10rem'
+        textAlign: 'center'
     },
     
     title: {
-        position: 'absolute',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        fontFamily: 'Proxima Nova',
-        margin: '0 auto',
+        color: theme.white,
+        fontFamily: `Gotham`,
         fontSize: '8rem',
-        fontWeight: 700,
-        color: '#003EFF',
-        letterSpacing: '8px',
-
-        '&:hover:before': {
-            top: '7px',
-            left: '7px'
-        },
-
-        '&:hover:after': {
-            top: '-7px',
-            left: '-7px'
-        }
-    },
-
-    before: {
-        content: '"DESTACADOS"',
-        position: 'absolute',
-        color: 'transparent',
-        backgroundImage: 'repeating-linear-gradient(45deg, transparent 0, transparent 2px, white 2px, white 4px)',
-        backgroundClip: 'text',
-        top: 0,
-        left: 0,
-        zIndex: -1,
-        transition: '.4s',
-    },
-
-    after: {
-        content: '"DESTACADOS"',
-        position: 'absolute',
-        color: 'transparent',
-        backgroundImage: 'repeating-linear-gradient(135deg, transparent 0, transparent 2px, white 2px, white 4px)',
-        backgroundClip: 'text',
-        top: 0,
-        left: 0,
-        transition: '.4s',
+        fontWeight: 900,
+        lineHeight: 1.05,
+        width: '100%',
+        WebkitTextFillColor: 'transparent',
+        WebkitTextStroke: '1px white',
+        marginBottom: '2rem'
     },
 
     titleLink: {
@@ -93,8 +58,6 @@ const Featured = () => {
     const [products, setProducts] = useState(undefined)
 
     const {classes} = useStyles();
-    const ref = useRef();
-    const isInView = useInView(ref);
 
     const data = useSelector(state => state.featured)
 
@@ -107,22 +70,8 @@ const Featured = () => {
     return (
         <Box className={classes.container}>
             <Container className={classes.titleBox} fluid>
-                <Title className={classes.title} ref={ref}>
-                    <motion.span 
-                    className={classes.before}
-                    initial={false}
-                    animate={{ x: isInView ? 7 : 0, y: isInView ? 7 : 0 }}
-                    >
-                        Destacados
-                    </motion.span>
+                <Title className={classes.title}>
                     Destacados
-                    <motion.span 
-                    className={classes.after}
-                    initial={false}
-                    animate={{ x: isInView ? -7 : 0, y: isInView ? -7 : 0 }}
-                    >
-                        Destacados
-                    </motion.span>
                 </Title>
             </Container>
             {products && 

@@ -41,9 +41,7 @@ const InfoCard = ({info}) => {
             <Title className={classes.cardTitle} mt="md">
                 {data.title}
             </Title>
-            <Text className={classes.cardDescription} mt="sm">
-                {data.description}
-            </Text>
+
         </Card>
     )
 }

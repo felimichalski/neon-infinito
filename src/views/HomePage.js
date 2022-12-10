@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LoadingOverlay, Image } from '@mantine/core'
+import { LoadingOverlay, Image, Container } from '@mantine/core'
 import { useDocumentTitle, useScrollLock } from '@mantine/hooks';
 import { useSelector } from 'react-redux';
 
@@ -15,16 +15,12 @@ import Footer from '../components/Footer/Footer';
 
 const HomePage = () => {
 
-    const user = 'Felipe Michalski';
+    const user = undefined;
 
     useDocumentTitle('Neón Infinito - Inicio')
     const [scrollLocked, setScrollLocked] = useScrollLock(true);
     const [loading, setLoading] = useState(true)
     const state = useSelector((state) => state)
-
-    useEffect(() => {
-        document.body.style.backgroundColor = 'black'
-    }, [])
 
     useEffect(() => {
         for (const [key, data] of Object.entries(state)) {
@@ -35,7 +31,7 @@ const HomePage = () => {
     }, [state])
 
     return (
-        <>
+        <Container fluid style={{backgroundColor: 'black'}}>
             <LoadingOverlay style={{position: 'fixed'}} visible={loading} loader={<Image src={Loader} />} overlayColor='black' overlayOpacity={1} transitionDuration={1000} zIndex={100000}/>
             <NavBar user={user} />
             <TitleBox />
@@ -43,9 +39,9 @@ const HomePage = () => {
             <Featured />
             <Gallery />
             <CommentsParallax />
-            <Featured />
+            {/* <Featured /> */}
             <Footer />
-        </>
+        </Container>
     )
 }
 

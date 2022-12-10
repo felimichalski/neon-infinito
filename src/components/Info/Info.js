@@ -8,17 +8,14 @@ const mockdata = [
   {
     icon: TbTruckDelivery,
     title: 'Envíos',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
   },
   {
     icon: MdPayments,
     title: 'Métodos de pago',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
   },
   {
     icon: RiSecurePaymentLine,
     title: 'Compra protegida',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum nisi aut maiores dolores',
   },
 ];
 

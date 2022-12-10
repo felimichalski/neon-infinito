@@ -1,26 +1,24 @@
 import { useEffect, useState } from 'react';
 import { createStyles, Container, Group, Menu, Tabs, Anchor, UnstyledButton, Image, Text, Box, Grid, Title } from '@mantine/core';
 import { useDisclosure, useViewportSize } from '@mantine/hooks';
-import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin } from '@tabler/icons';
+import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin, IconDoorEnter } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { motion } from "framer-motion";
+
+import removeAccents from '../../utils/removeAccents';
 
 import CartModal from '../CartModal/CartModal';
 import Sidebar from './Sidebar'
 import logo from '../../assets/logo.png'
 import CategoriesMenu from './CategoriesMenu';
 
-const removeAccents = (str) => {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-const useStyles = createStyles((theme, {position, height, width}) => ({
+const useStyles = createStyles((theme, {position, top, height, width}) => ({
   header: {
     width: '90%',
     zIndex: 1000,
     position,
-    top: position === 'absolute' ? '50px' : '25px',
+    top,
     backgroundColor: position === 'absolute' ? 'transparent' : 'rgba(255, 255, 255, 0.8)',
     left: '50%',
     transform: 'translateX(-50%)',
@@ -28,6 +26,7 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
     backdropFilter: position === 'fixed' && 'saturate(200%) blur(30px)',
     boxShadow: position === 'fixed' && '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
     transition: 'background-color .3s ease-out',
+    transition: position === 'fixed' && 'top .5s ease-out',
   },
 
   mainSection: {
@@ -35,6 +34,10 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+
+  logo: {
+    display: position === 'absolute' ? 'none' : 'default',
   },
 
   iconContainer: {
@@ -50,7 +53,7 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   icon: {
     color: position === 'absolute' ? theme.white : theme.black,
     cursor: 'pointer',
-    transition: 'color .3s ease-out',
+    transition: 'color .3s ease-out',    
   },
 
   cartIndicator: {
@@ -94,6 +97,7 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   },
 
   tabsList: {
+    display: position === 'absolute' ? 'none' : 'default',
     borderBottom: '0 !important',
   },
 
@@ -124,24 +128,23 @@ const useStyles = createStyles((theme, {position, height, width}) => ({
   }
 }));
 
+const tabs = [{
+  name: 'Galería',
+  link: '/galery'
+},{
+  name: 'Categorías',
+}, {
+  name: 'Personalizados',
+  link: '/custom',
+}, {
+  name: 'Contactanos',
+  link: '/contact',
+}];
+
 const NavBar = ({ user }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
-
-    const handleSearch = (e) => {
-      if(e.key.toLowerCase() === 'enter') {
-        navigate(`/search?id=${e.target.value}`)
-      }
-    }
-
-    const handleScroll = () => {
-      if(window.scrollY > 25) {
-        setPosition('fixed');
-      } else {
-        setPosition('absolute');
-      }
-    }
     
     const data = useSelector((state) => state.cart)
 
@@ -150,21 +153,27 @@ const NavBar = ({ user }) => {
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const [cartModalOpened, setCartModalOpened] = useState(false);
     const [position, setPosition] = useState('absolute')
-    const {classes, theme, cx} = useStyles({position, height, width});
+    const [top, setTop] = useState('50px');
+    const {classes, theme, cx} = useStyles({position, height, width, top});
     const [cartIndicator, setCartIndicator] = useState();
 
-    const tabs = [{
-      name: 'Galería',
-      link: '/galery'
-    },{
-      name: 'Categorías',
-    }, {
-      name: 'Personalizados',
-      link: '/custom',
-    }, {
-      name: 'Contactanos',
-      link: '/contact',
-    }];
+    const handleSearch = (e) => {
+      if(e.key.toLowerCase() === 'enter') {
+        navigate(`/search?id=${e.target.value}`)
+      }
+    }
+
+    const handleScroll = () => {
+      if(window.scrollY > window.innerHeight) {
+        setPosition('fixed');
+        setTop('25px');
+      } else if(window.scrollY > 150) {
+        setTop('-10rem');
+      } else {
+        setPosition('absolute');
+        setTop('50px');
+      }
+    }
 
     useEffect(() => {
       setCartIndicator(data.cartTotalQuantity)
@@ -259,11 +268,17 @@ const NavBar = ({ user }) => {
                   <Menu.Item color="red" icon={<IconTrash size={14} stroke={1.5} />}>
                       Delete account
                   </Menu.Item>
+                  <Menu.Divider />
+                  <Link to='/backoffice' style={{ textDecoration: 'none' }}>
+                    <Menu.Item color="green" icon={<IconDoorEnter size={14} stroke={1.5} />}>
+                        Backoffice
+                    </Menu.Item>
+                  </Link>
                 </Menu.Dropdown>
               </Menu>
               :
               <UnstyledButton className={classes.iconContainer}>
-                <IconLogin size={30} stroke={1.5} className={classes.icon}/>
+                  <IconLogin size={30} stroke={1.5} className={classes.icon}/>
               </UnstyledButton>
               }
               <UnstyledButton className={classes.iconContainer}>

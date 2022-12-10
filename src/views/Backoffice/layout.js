@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 // @mui
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 //
 import Header from './header';
 import Nav from './nav';
@@ -28,6 +28,7 @@ const Main = styled('div')(({ theme }) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
+  backgroundColor: alpha(theme.palette.grey[200], 0.16)
 }));
 
 // ----------------------------------------------------------------------

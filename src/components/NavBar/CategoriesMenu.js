@@ -10,16 +10,16 @@ const useStyles = createStyles((theme, {position}) => ({
     tab: {
         fontFamily: 'Proxima Nova',
         fontWeight: '700',
-        fontSize: '15px',
+        fontSize: position === 'absolute' ? '12px' : '15px',
         backgroundColor: 'transparent',
         border: 'none',
-        color: position === 'absolute' ? theme.white : theme.black,
         textTransform: 'uppercase',
         transition: 'all .3s ease-out',
         userSelect: 'none',
+        color: position === 'absolute' ? theme.colors.gray[6] : theme.black,
     
         '&[data-active]': {
-          color: position === 'absolute' ? theme.white : 'black !important',
+          color: position === 'absolute' ? theme.colors.gray[6] : 'black !important',
         },
     
         '&:hover': {
@@ -64,20 +64,20 @@ const CategoriesMenu = ({tab, position}) => {
         <Menu offset={23} closeDelay={200} radius='0' trigger='hover' withinPortal='true'>
             <Menu.Target>
                 <Tabs.Tab value={removeAccents(tab.name.toLowerCase())} className={classes.tab}>
-                    <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}<IconChevronDown /></Text>
+                    <Text style={{display: 'flex', alignItems: 'center'}}>{tab.name}{position === 'fixed' && <IconChevronDown />}</Text>
                 </Tabs.Tab>
             </Menu.Target>
             <Menu.Dropdown className={classes.dropdown}>
             <Box className={classes.categoryList}>
-                <Box className={classes.categorySection} style={{backgroundColor: '#15244c'}}>
+                <Box className={classes.categorySection} style={{backgroundColor: '#84b4b4 '}}>
                     <Title className={classes.categoryTitle}>Neones de Diseño</Title>
                 </Box>
-                <Box className={classes.categorySection} style={{backgroundColor: '#0d4c9b'}}>
+                {/* <Box className={classes.categorySection} style={{backgroundColor: '#0d4c9b'}}>
                     <Title className={classes.categoryTitle}>Artístico</Title>
                 </Box>
                 <Box className={classes.categorySection} style={{backgroundColor: '#5c84ac'}}>
                     <Title className={classes.categoryTitle}>Algo Distinto</Title>
-                </Box>
+                </Box> */}
             </Box>
             </Menu.Dropdown>
         </Menu>

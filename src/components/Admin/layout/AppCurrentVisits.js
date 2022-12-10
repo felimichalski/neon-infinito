@@ -6,7 +6,7 @@ import { Card, CardHeader } from '@mui/material';
 // utils
 import { fNumber } from '../../../utils/formatNumber';
 // components
-import { useChart } from '../chart';
+import { useChart } from '../Dashboard/chart';
 
 // ----------------------------------------------------------------------
 

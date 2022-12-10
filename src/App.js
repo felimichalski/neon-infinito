@@ -13,7 +13,9 @@ import Search from './views/Search';
 import BackofficeLayout from './views/Backoffice/layout';
 
 import "react-toastify/dist/ReactToastify.css";
-import Dashboard from './components/AdminDashboard/Dashboard';
+import Dashboard from './components/Admin/Dashboard';
+import Products from './components/Admin/Products';
+import AllProductsTable from './components/Admin/Products/All';
 
 function App() {
 
@@ -54,7 +56,13 @@ function App() {
               <Route path="/backoffice" element={<BackofficeLayout />}>
                   <Route index element={<Dashboard />}/>
                   <Route path='users' element={<Dashboard />}/>
-                  <Route path='products' element={<Dashboard />}/>
+                  <Route path='products'>
+                    <Route index element={<Products />}/>
+                    <Route path='featured' element={<Dashboard />}/>
+                    <Route path='all' element={<AllProductsTable />}/>
+                    <Route path='categories' element={<Dashboard />}/>
+                    <Route path='price' element={<Dashboard />}/>
+                  </Route>
                   <Route path='other' element={<Dashboard />}/>
               </Route>
               <Route path="*" element={<Navigate replace to='/404' />} />

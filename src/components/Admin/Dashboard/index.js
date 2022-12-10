@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 // components
 // import Iconify from '../components/iconify';
 // sections
@@ -15,7 +15,7 @@ import {
   AppWidgetSummary,
   AppCurrentSubject,
   AppConversionRates,
-} from './layout';
+} from '../layout';
 
 // ----------------------------------------------------------------------
 
