@@ -1,24 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import { socialFetch } from '../actions/socialActions';
 
 const initialState = {
     items: [],
     status: null
 }
-
-export const socialFetch = createAsyncThunk(
-    "social/socialFetch",
-    async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}public/social`,{
-                mode: 'cors'
-            })
-            const data = await response.json();
-            return data
-        } catch (error) {
-            console.error(error)
-        }
-    }
-)
 
 const socialSlice = createSlice({
     name: 'social',
@@ -30,7 +17,7 @@ const socialSlice = createSlice({
         },
         [socialFetch.fulfilled]: (state, action) => {
             state.status = 'success';
-            state.items = action.payload.result;
+            state.items = action.payload;
         },
         [socialFetch.rejected]: (state, action) => {
             state.status = 'rejected'

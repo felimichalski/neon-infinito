@@ -3,7 +3,8 @@ import { createStyles, Container, Group, Menu, Tabs, Anchor, UnstyledButton, Ima
 import { useDisclosure, useViewportSize } from '@mantine/hooks';
 import { IconLogout, IconHeart, IconStar, IconMessage, IconSettings, IconPlayerPause, IconTrash, IconSwitchHorizontal, IconUser, IconShoppingCart, IconSearch, IconMenu2, IconLogin, IconDoorEnter } from '@tabler/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logOut } from '../../features/slices/authSlice';
 import { motion } from "framer-motion";
 
 import removeAccents from '../../utils/removeAccents';
@@ -141,12 +142,14 @@ const tabs = [{
   link: '/contact',
 }];
 
-const NavBar = ({ user }) => {
+const NavBar = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
     
-    const data = useSelector((state) => state.cart)
+    const cartState = useSelector((state) => state.cart)
+    const userState = useSelector((state) => state.auth)
 
     const [opened, { toggle }] = useDisclosure(false);
     const {height, width} = useViewportSize();
@@ -156,6 +159,7 @@ const NavBar = ({ user }) => {
     const [top, setTop] = useState('50px');
     const {classes, theme, cx} = useStyles({position, height, width, top});
     const [cartIndicator, setCartIndicator] = useState();
+    const [user, setUser] = useState(undefined);
 
     const handleSearch = (e) => {
       if(e.key.toLowerCase() === 'enter') {
@@ -176,8 +180,16 @@ const NavBar = ({ user }) => {
     }
 
     useEffect(() => {
-      setCartIndicator(data.cartTotalQuantity)
-    }, [data])
+      setCartIndicator(cartState.cartTotalQuantity)
+    }, [cartState])
+    
+    useEffect(() => {
+      if(Object.keys(userState.userInfo).length > 0) {
+        setUser(userState.userInfo)
+      } else {
+        setUser(undefined)
+      }
+    }, [userState])
 
     useEffect(() => {
       handleScroll();
@@ -265,15 +277,19 @@ const NavBar = ({ user }) => {
                   <Menu.Item icon={<IconPlayerPause size={14} stroke={1.5} />}>
                       Pause subscription
                   </Menu.Item>
-                  <Menu.Item color="red" icon={<IconTrash size={14} stroke={1.5} />}>
-                      Delete account
+                  <Menu.Item color="red" icon={<IconLogout size={14} stroke={1.5} />} onClick={() => dispatch(logOut())}>
+                      Log out
                   </Menu.Item>
-                  <Menu.Divider />
-                  <Link to='/backoffice' style={{ textDecoration: 'none' }}>
-                    <Menu.Item color="green" icon={<IconDoorEnter size={14} stroke={1.5} />}>
-                        Backoffice
-                    </Menu.Item>
-                  </Link>
+                  {user.admin &&
+                    <>
+                      <Menu.Divider />
+                      <Link to='/backoffice' style={{ textDecoration: 'none' }}>
+                        <Menu.Item color="green" icon={<IconDoorEnter size={14} stroke={1.5} />}>
+                            Backoffice
+                        </Menu.Item>
+                      </Link>
+                    </>
+                  }
                 </Menu.Dropdown>
               </Menu>
               :

@@ -1,18 +1,17 @@
-import { useTheme } from '@mui/material/styles';
 import { Grid, Container } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom'
 import { AppWidgetSummary } from '../layout';
-import { IconListDetails, IconTimeline, IconCategory, IconReceipt2 } from '@tabler/icons'
+import { IconListDetails, IconPlus, IconCategory, IconReceipt2 } from '@tabler/icons'
 
 const Products = () => {
     return (
       <Container maxWidth="xl">
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} component={RouterLink} to='all' style={{ textDecoration: 'none' }}>
-            <AppWidgetSummary title="Todos los productos" icon={<IconListDetails />} />
+          <Grid item xs={12} sm={6} component={RouterLink} to='list' style={{ textDecoration: 'none' }}>
+            <AppWidgetSummary title="Listado" icon={<IconListDetails />} />
           </Grid>
-          <Grid item xs={12} sm={6} component={RouterLink} to='featured' style={{ textDecoration: 'none' }}>
-            <AppWidgetSummary title="Destacados" color="error" icon={<IconTimeline />} />
+          <Grid item xs={12} sm={6} component={RouterLink} to='add' style={{ textDecoration: 'none' }}>
+            <AppWidgetSummary title="Agregar" color="error" icon={<IconPlus />} />
           </Grid>
           <Grid item xs={12} sm={6} component={RouterLink} to='categories' style={{ textDecoration: 'none' }}>
             <AppWidgetSummary title="Categorías" color="warning" icon={<IconCategory />} />

@@ -128,8 +128,8 @@ function Footer() {
                     </Title>
                     <List listStyleType='none' mx='auto'>
                         {tabs.map((tab, key) => (
-                            <List.Item>
-                                <Link className={classes.tabLink} key={key} to={tab.link}>{tab.name}</Link>
+                            <List.Item key={key}>
+                                <Link className={classes.tabLink} to={tab.link}>{tab.name}</Link>
                             </List.Item>
                         ))}
                     </List>
@@ -166,7 +166,7 @@ function Footer() {
             labelPosition='center'
             label={
                 <>
-                    {icons.length > 0 &&
+                    {icons?.length > 0 &&
                         icons.map((icon, key) => (
                             <Icon data={icon} key={key}/>
                         ))

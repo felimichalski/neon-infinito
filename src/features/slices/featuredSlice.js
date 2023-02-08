@@ -1,24 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import { featuredFetch } from '../actions/featuredActions';
 
 const initialState = {
     items: [],
     status: null
 }
-
-export const featuredFetch = createAsyncThunk(
-    "featured/featuredFetch",
-    async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}featured`,{
-                mode: 'cors'
-            })
-            const data = await response.json();
-            return data
-        } catch (error) {
-            console.error(error)
-        }
-    }
-)
 
 const featuredSlice = createSlice({
     name: 'featured',
@@ -30,7 +17,7 @@ const featuredSlice = createSlice({
         },
         [featuredFetch.fulfilled]: (state, action) => {
             state.status = 'success';
-            state.items = action.payload.result;
+            state.items = action.payload;
         },
         [featuredFetch.rejected]: (state, action) => {
             state.status = 'rejected'

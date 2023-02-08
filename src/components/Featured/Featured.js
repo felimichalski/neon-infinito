@@ -1,13 +1,13 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useSelector } from 'react-redux'
 
 import FeaturedCard from "./FeaturedCard"
-import { createStyles, Box, Title, Container } from "@mantine/core";
-import { Carousel } from "@mantine/carousel"
+import { createStyles, Box, Title, Container, Grid, BackgroundImage } from "@mantine/core";
 
-import { useInView, motion } from "framer-motion"
-import { featuredFetch } from "../../features/slices/featuredSlice";
+// import { motion } from "framer-motion"
+
+import background from '../../assets/lineas.jpg'
 
 const useStyles = createStyles((theme) => ({
     container: {
@@ -30,40 +30,22 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 900,
         lineHeight: 1.05,
         width: '100%',
-        WebkitTextFillColor: 'transparent',
+        WebkitTextFillColor: 'black',
         WebkitTextStroke: '1px white',
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        textShadow: '0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #0d4c9b, 0 0 80px #0d4c9b, 0 0 90px #0d4c9b'
     },
-
-    titleLink: {
-        textDecoration: 'none',
-        fontSize: '1rem',
-        fontWeight: 700,
-        display: 'flex',
-        alignItems: 'center',
-
-        '&:hover': {
-            color: 'white'
-        }
-    },
-
-    carousel: {
-        padding: '1rem 3rem 3rem 3rem',
-        boxSizing: 'border-box'
-    }
 }))
 
 const Featured = () => {
 
-    const [products, setProducts] = useState(undefined)
-
     const {classes} = useStyles();
-
     const data = useSelector(state => state.featured)
+    const [products, setProducts] = useState(undefined)
 
     useEffect(() => {
         if(data.status === 'success') {
-            setProducts(data.items)
+            setProducts(data.items);
         }
     }, [data])
     
@@ -74,31 +56,14 @@ const Featured = () => {
                     Destacados
                 </Title>
             </Container>
-            {products && 
-                <Carousel
-                height='max-content'
-                slideSize="21.5%"
-                breakpoints={[
-                    { maxWidth: 'lg', slideSize: '25%', slideGap: 'xs' },
-                    { maxWidth: 'md', slideSize: '33.333333%', slideGap: 0 },
-                    { maxWidth: 'sm', slideSize: '50%', slideGap: 0 },
-                ]}
-                loop
-                align='center'
-                className={classes.carousel}
-                styles={{indicator: {
-                    backgroundColor: 'rgba(0, 0, 0)',
-                }, control: {
-                    opacity: 1,
-                }}}
-                >
-                    {products.map((product, key) => (
-                        <Carousel.Slide key={key}>
-                            <FeaturedCard data={product}/>
-                        </Carousel.Slide>
-                    ))}
-                </Carousel>
-            }
+            <Grid>
+                <BackgroundImage src={background}/>
+                {products?.map((product, key) => (
+                    <Grid.Col span={3} key={key}>
+                        <FeaturedCard data={product} />
+                    </Grid.Col>
+                ))}
+            </Grid>
         </Box>
     )
 }

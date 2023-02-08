@@ -1,4 +1,4 @@
-import { Card, Image, Text, Indicator, createStyles, Title, Button, Divider, Box } from '@mantine/core';
+import { Card, Image, Text, Indicator, createStyles, Title, Button } from '@mantine/core';
 import { Link } from 'react-router-dom'
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
@@ -10,7 +10,12 @@ const useStyles = createStyles((theme, _, getRef) => ({
     backgroundColor: 'transparent',
     margin: '1rem',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    transition: '.2s ease-in-out',
+
+    '&:hover': {
+      transform: 'scale(1.1)'
+    }
   },
 
   category: {
@@ -37,7 +42,6 @@ const useStyles = createStyles((theme, _, getRef) => ({
   },
 
   price: {
-    color: theme.black,
     fontFamily: 'Proxima nova',
     fontSize: '1.2rem',
     color: theme.colors.gray[6]
@@ -62,9 +66,11 @@ const useStyles = createStyles((theme, _, getRef) => ({
 const FeaturedCard = ({data}) => {
 
   const { classes } = useStyles();
-  const { id, image, category, name, price } = data;
-
   const dispatch = useDispatch();
+  
+  if(!data) return;
+
+  const { image, category, name, price } = data;
 
   const handeClick = (e) => {
     e.preventDefault();

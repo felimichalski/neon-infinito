@@ -22,7 +22,7 @@ function App() {
   const location = useLocation();
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence>
       <ParallaxProvider>
           <MantineProvider 
             theme={{
@@ -58,8 +58,8 @@ function App() {
                   <Route path='users' element={<Dashboard />}/>
                   <Route path='products'>
                     <Route index element={<Products />}/>
-                    <Route path='featured' element={<Dashboard />}/>
-                    <Route path='all' element={<AllProductsTable />}/>
+                    <Route path='list' element={<AllProductsTable />}/>
+                    <Route path='add' element={<Dashboard />}/>
                     <Route path='categories' element={<Dashboard />}/>
                     <Route path='price' element={<Dashboard />}/>
                   </Route>

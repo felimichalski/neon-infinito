@@ -1,4 +1,3 @@
-import { Button } from '@mantine/core';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
@@ -20,6 +19,12 @@ const columns = [
     valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
+  {
+    field: 'featured',
+    headerName: 'Featured',
+    type: 'boolean',
+    width: 90,
+  },
 ];
 
 const rows = [
@@ -35,10 +40,6 @@ const rows = [
 ];
 
 export default function DataTable() {
-  const handleClick = () => {
-    prompt('Agregue nuevo producto')
-  }
-
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -48,7 +49,6 @@ export default function DataTable() {
         rowsPerPageOptions={[5]}
         checkboxSelection
       />
-      <Button onClick={handleClick}>Agregar producto</Button>
     </div>
   );
 }

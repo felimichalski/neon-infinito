@@ -36,14 +36,14 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 900,
     lineHeight: 1.05,
     width: '60%',
-    fontSize: 55,
+    fontSize: 30,
     WebkitTextFillColor: 'transparent',
     WebkitTextStroke: '1px white',
     textAlign: 'center',
 
     [theme.fn.smallerThan('md')]: {
       maxWidth: '100%',
-      fontSize: 34,
+      fontSize: 20,
       lineHeight: 1.15,
     },
   },
@@ -128,9 +128,6 @@ const TitleBox = () => {
       <Box className={classes.root}>
         <BackgroundImage src={background} className={classes.container}>
           <div className={classes.content}>
-              <Title className={classes.title}>
-                Bienvenidos a
-              </Title>
               <Image src={logo} width={300} style={{margin: '2rem 0 4rem 0'}}/>
               <Tabs classNames={{
                 root: classes.tabs,

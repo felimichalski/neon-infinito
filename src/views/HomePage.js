@@ -24,11 +24,11 @@ const HomePage = () => {
 
     useEffect(() => {
         for (const [key, data] of Object.entries(state)) {
-            if(data.status !== 'success') return;
+            if(data.status === 'pending') return;
         }
         setLoading(false)
         setScrollLocked(false)
-    }, [state])
+    }, [state, setScrollLocked])
 
     return (
         <Container fluid style={{backgroundColor: 'black'}}>
@@ -37,7 +37,7 @@ const HomePage = () => {
             <TitleBox />
             <Info />
             <Featured />
-            <Gallery />
+            {/* <Gallery /> */}
             <CommentsParallax />
             {/* <Featured /> */}
             <Footer />
