@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LoadingOverlay, Image, Container } from '@mantine/core'
+import { LoadingOverlay, Image, Container, Box } from '@mantine/core'
 import { useDocumentTitle, useScrollLock } from '@mantine/hooks';
 import { useSelector } from 'react-redux';
 
@@ -31,17 +31,17 @@ const HomePage = () => {
     }, [state, setScrollLocked])
 
     return (
-        <Container fluid style={{backgroundColor: 'black'}}>
-            <LoadingOverlay style={{position: 'fixed'}} visible={loading} loader={<Image src={Loader} />} overlayColor='black' overlayOpacity={1} transitionDuration={1000} zIndex={100000}/>
+        <Box style={{backgroundColor: 'white', boxSizing: 'border-box'}}>
+            <LoadingOverlay style={{position: 'fixed', width: '100vw'}} visible={loading} loader={<Image src={Loader} />} overlayColor='black' overlayOpacity={1} transitionDuration={1000} zIndex={100000}/>
             <NavBar user={user} />
             <TitleBox />
-            <Info />
+            {/* <Info /> */}
             <Featured />
             {/* <Gallery /> */}
             <CommentsParallax />
             {/* <Featured /> */}
             <Footer />
-        </Container>
+        </Box>
     )
 }
 

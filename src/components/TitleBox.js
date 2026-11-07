@@ -1,7 +1,7 @@
 import { createStyles, Container, Title, Text, Overlay, Box, BackgroundImage, Image, Tabs } from '@mantine/core'
 import { Link } from 'react-router-dom';
 
-import background from '../assets/descarga.jpg'
+import background from '../assets/bgHome.webp'
 import logo from '../assets/logo.png'
 import CategoriesMenu from './NavBar/CategoriesMenu';
 
@@ -18,7 +18,6 @@ const useStyles = createStyles((theme) => ({
     zIndex: 3,
     height: '100%',
     width : '100%',
-    backgroundColor: 'white',
     position: 'relative',
     display: 'flex',
   },
@@ -127,7 +126,7 @@ const TitleBox = () => {
   return (
       <Box className={classes.root}>
         <BackgroundImage src={background} className={classes.container}>
-          <div className={classes.content}>
+          {/* <div className={classes.content}>
               <Image src={logo} width={300} style={{margin: '2rem 0 4rem 0'}}/>
               <Tabs classNames={{
                 root: classes.tabs,
@@ -137,9 +136,8 @@ const TitleBox = () => {
               >
                 <Tabs.List>{items}</Tabs.List>
               </Tabs>
-          </div>
+          </div> */}
         </BackgroundImage>
-        <Overlay color='#000' opacity={.4} zIndex={2}/>
       </Box>
     )
 }

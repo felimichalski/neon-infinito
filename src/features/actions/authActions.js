@@ -55,7 +55,6 @@ export const getUserDetails = createAsyncThunk(
   "users/me",
   async (_, { getState, rejectWithValue }) => {
     try {
-      
       const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/users/me`, {
         method: "GET",
         headers: {

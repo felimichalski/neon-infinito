@@ -18,7 +18,6 @@ const useStyles = createStyles((theme) => ({
     titleBox: {
         alignItems: 'center',
         width: '100%',
-        boxSizing: 'border-box',
         textTransform: 'uppercase',
         textAlign: 'center'
     },
@@ -56,8 +55,7 @@ const Featured = () => {
                     Destacados
                 </Title>
             </Container>
-            <Grid>
-                <BackgroundImage src={background}/>
+            <Grid m={5}>
                 {products?.map((product, key) => (
                     <Grid.Col span={3} key={key}>
                         <FeaturedCard data={product} />

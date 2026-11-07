@@ -14,27 +14,24 @@ import Sidebar from './Sidebar'
 import logo from '../../assets/logo.png'
 import CategoriesMenu from './CategoriesMenu';
 
-const useStyles = createStyles((theme, {position, top, height, width}) => ({
+const useStyles = createStyles((theme, {position, top}) => ({
   header: {
-    width: '90%',
+    width: position === 'absolute' ? '90%' : '100%',
     zIndex: 1000,
     position,
     top,
-    backgroundColor: position === 'absolute' ? 'transparent' : 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: position === 'absolute' ? 'transparent' : 'rgba(255, 255, 255, 1)',
     left: '50%',
     transform: 'translateX(-50%)',
-    borderRadius: '.5rem',
     backdropFilter: position === 'fixed' && 'saturate(200%) blur(30px)',
     boxShadow: position === 'fixed' && '0px 5px 10px 0px rgba(0, 0, 0, 0.5)',
-    transition: 'background-color .3s ease-out',
-    transition: position === 'fixed' && 'top .5s ease-out',
   },
 
   mainSection: {
-    padding: '.5rem 3rem',
+    padding: '.5rem 5rem',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   logo: {
@@ -52,7 +49,7 @@ const useStyles = createStyles((theme, {position, top, height, width}) => ({
   },
 
   icon: {
-    color: position === 'absolute' ? theme.white : theme.black,
+    color: position === 'fixed' ? theme.white : theme.black,
     cursor: 'pointer',
     transition: 'color .3s ease-out',    
   },
@@ -98,13 +95,16 @@ const useStyles = createStyles((theme, {position, top, height, width}) => ({
   },
 
   tabsList: {
-    display: position === 'absolute' ? 'none' : 'default',
+    display: position === 'absolute' ? 'none' : 'flex',
     borderBottom: '0 !important',
+    width: '80%',
+    justifyContent: 'space-around',
+    margin: '.2rem auto'
   },
 
   tab: {
     fontFamily: 'Proxima Nova',
-    fontWeight: '700',
+    fontWeight: '500',
     fontSize: '15px',
     backgroundColor: 'transparent',
     border: 'none',
@@ -130,6 +130,9 @@ const useStyles = createStyles((theme, {position, top, height, width}) => ({
 }));
 
 const tabs = [{
+  name: 'Inicio',
+  link: '/'
+},{
   name: 'Galería',
   link: '/galery'
 },{
@@ -144,8 +147,8 @@ const tabs = [{
 
 const NavBar = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
+    // const navigate = useNavigate();
+    // const location = useLocation();
     const dispatch = useDispatch();
     
     const cartState = useSelector((state) => state.cart)
@@ -161,21 +164,21 @@ const NavBar = () => {
     const [cartIndicator, setCartIndicator] = useState();
     const [user, setUser] = useState(undefined);
 
-    const handleSearch = (e) => {
-      if(e.key.toLowerCase() === 'enter') {
-        navigate(`/search?id=${e.target.value}`)
-      }
-    }
+    // const handleSearch = (e) => {
+    //   if(e.key.toLowerCase() === 'enter') {
+    //     navigate(`/search?id=${e.target.value}`)
+    //   }
+    // }
 
     const handleScroll = () => {
       if(window.scrollY > window.innerHeight) {
         setPosition('fixed');
-        setTop('25px');
+        setTop('0');
       } else if(window.scrollY > 150) {
-        setTop('-10rem');
+        // setTop('-10rem');
       } else {
-        setPosition('absolute');
-        setTop('50px');
+        setPosition('fixed');
+        setTop('0');
       }
     }
 
@@ -184,6 +187,7 @@ const NavBar = () => {
     }, [cartState])
     
     useEffect(() => {
+      console.log(userState)
       if(Object.keys(userState.userInfo).length > 0) {
         setUser(userState.userInfo)
       } else {
@@ -220,23 +224,12 @@ const NavBar = () => {
                   <Image src={logo} height={50}/>
               </Anchor>
             </Group>
-
-            <Group position='center'>
-              <Tabs classNames={{
-                root: classes.tabs,
-                tabsList: classes.tabsList
-              }}
-              onTabChange={null}
-              >
-                <Tabs.List>{items}</Tabs.List>
-              </Tabs>
-            </Group>
             <Group>
-              <UnstyledButton className={classes.burger}>
-                <IconMenu2 onClick={toggle} className={classes.burgerIcon} size={30} color={position === 'absolute' ? 'white' : 'black'}/>
-              </UnstyledButton>
               <UnstyledButton className={classes.iconContainer}>
                 <IconSearch size={30} stroke={1.5} className={classes.icon}/>
+              </UnstyledButton>
+              <UnstyledButton className={classes.burger}>
+                <IconMenu2 onClick={toggle} className={classes.burgerIcon} size={30} color={position === 'absolute' ? 'white' : 'black'}/>
               </UnstyledButton>
               {user?
               <Menu
@@ -246,7 +239,7 @@ const NavBar = () => {
                   onClose={() => setUserMenuOpened(false)}
                   onOpen={() => setUserMenuOpened(true)}
               >
-                <Menu.Target>
+                <Menu.Target ml={20}>
                   <UnstyledButton
                     className={cx(classes.iconContainer, { [classes.userActive]: userMenuOpened })}
                   >
@@ -293,15 +286,25 @@ const NavBar = () => {
                 </Menu.Dropdown>
               </Menu>
               :
-              <UnstyledButton className={classes.iconContainer}>
+              <UnstyledButton className={classes.iconContainer} ml={20}>
                   <IconLogin size={30} stroke={1.5} className={classes.icon}/>
               </UnstyledButton>
               }
-              <UnstyledButton className={classes.iconContainer}>
+              <UnstyledButton className={classes.iconContainer} ml={20}>
                 <motion.span className={classes.cartIndicator}>{cartIndicator}</motion.span>
                 <IconShoppingCart size={30} stroke={1.5} className={classes.icon} onClick={() => setCartModalOpened(!cartModalOpened)}/>
               </UnstyledButton>
             </Group>
+          </Container>
+          <Container fluid>
+            <Tabs classNames={{
+              root: classes.tabs,
+              tabsList: classes.tabsList
+            }}
+            onTabChange={null}
+            >
+              <Tabs.List>{items}</Tabs.List>
+            </Tabs>
           </Container>
         </div>
         <Sidebar opened={opened} toggle={toggle} className={classes.sidebar}/>
